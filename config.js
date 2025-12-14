@@ -1,0 +1,9 @@
+globalThis.facebookURL = "#";
+globalThis.PinterestURL = "#";
+globalThis.twitterURL = "#";
+globalThis.redditURL = "#";
+globalThis.siteUrl = 'https://www.mathgames4kids.com';
+globalThis.homepageTitle = 'MATH GAMES 4 KIDS';
+globalThis.homepageTagline = 'MATH GAMES 4 KIDS - Simple Math Games for Every day';
+globalThis.email = 'contact@mathgames4kids.com';
+globalThis.copyright = '2025 MATH GAMES 4 KIDS. All rights reserved.';

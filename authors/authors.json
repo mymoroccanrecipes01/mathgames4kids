@@ -1,0 +1,10 @@
+[
+  {
+    "id": "author_001",
+    "name": "Lummy Hayes",
+    "description": "Home cook sharing easy, flavorful recipes that bring joy to your table. From quick weeknight dinners to crowd-pleasing favorites, let's cook something delicious together!",
+    "imagePath": "authors/images/lummy_hayes.png",
+    "active": true
+  }
+
+]
