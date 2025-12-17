@@ -29,7 +29,7 @@ class PostDetailLoader {
             await this.waitForContainer();
             
             if (!this.contentContainer) {
-                // console.error('Container #Post-content not found');
+                console.error('Container #Post-content not found');
                 return;
             }
 
@@ -55,7 +55,7 @@ class PostDetailLoader {
             this.initialized = true;
 
         } catch (error) {
-            // console.error('Error loading Post:', error);
+            console.error('Error loading Post:', error);
             this.showError('Error loading Post');
         }
     }
@@ -66,7 +66,7 @@ class PostDetailLoader {
         this.contentContainer = document.getElementById('Post-content');
         
         if (this.contentContainer) {
-            // console.log('✅ Post-content container found');
+            console.log('✅ Post-content container found');
             return;
         }
         
@@ -82,7 +82,7 @@ class PostDetailLoader {
             mainContent.appendChild(postContainer);
             
             this.contentContainer = postContainer;
-            // console.log('✅ Post-content container created in main-content');
+            console.log('✅ Post-content container created in main-content');
             return;
         }
         
@@ -101,11 +101,11 @@ class PostDetailLoader {
             body.appendChild(mainContentDiv);
             
             this.contentContainer = postContainer;
-            // console.log('✅ Both main-content and Post-content containers created');
+            console.log('✅ Both main-content and Post-content containers created');
             return;
         }
         
-        // console.error('❌ Unable to create container - no body element found');
+        console.error('❌ Unable to create container - no body element found');
     }
 
     createPinterestButton(imageUrl, title, description = '') {
@@ -262,7 +262,7 @@ class PostDetailLoader {
     // ✅ CORRECTION: loadRecentPosts avec post en minuscule
     async loadRecentPosts(categoryId = null) {
         try {
-            // console.log('Loading recent posts...', categoryId ? `filtered by category: ${categoryId}` : '');
+            console.log('Loading recent posts...', categoryId ? `filtered by category: ${categoryId}` : '');
             
             const postFolders = await this.getPostFolders();
             
@@ -280,7 +280,7 @@ class PostDetailLoader {
             
             if (categoryId) {
                 validPosts = this.filterPostsByCategory(validPosts, categoryId);
-                // console.log(`Filtered posts by category ${categoryId}:`, validPosts.length);
+                console.log(`Filtered posts by category ${categoryId}:`, validPosts.length);
             }
             
             if (validPosts.length === 0) {
@@ -306,10 +306,10 @@ class PostDetailLoader {
                 isOnline: post.isOnline
             }));
 
-            // console.log('Recent posts loaded:', this.recentPosts.length);
+            console.log('Recent posts loaded:', this.recentPosts.length);
             
         } catch (error) {
-            // console.error('Error loading recent posts:', error);
+            console.error('Error loading recent posts:', error);
             await this.setDefaultRecentPosts();
         }
     }
@@ -338,7 +338,7 @@ class PostDetailLoader {
                 return indexData.folders || indexData;
             }
         } catch (error) {
-            // console.log('Fichier index.json non trouvé, scan automatique...');
+            console.log('Fichier index.json non trouvé, scan automatique...');
         }
 
         return await this.scanPostFolders();
@@ -392,7 +392,7 @@ class PostDetailLoader {
             };
             
         } catch (error) {
-            // console.error(`Erreur lors du chargement de la poste ${folderName}:`, error);
+            console.error(`Erreur lors du chargement de la poste ${folderName}:`, error);
             return null;
         }
     }
@@ -469,7 +469,7 @@ class PostDetailLoader {
             ];
 
         } catch (error) {
-            // console.error('Erreur lors du chargement des postes par défaut:', error);
+            console.error('Erreur lors du chargement des postes par défaut:', error);
             
             this.recentPosts = [
                 {
@@ -494,7 +494,7 @@ class PostDetailLoader {
             `;
         }
 
-        // console.log(this.recentPosts);
+        console.log(this.recentPosts);
         
         const postsHTML = this.recentPosts.map(post => `
             <div class="mini-Post" onclick="loadPost('${post.slug}')" style="cursor: pointer; ${!post.isOnline ? 'display:none;' : ''}">
@@ -526,7 +526,7 @@ class PostDetailLoader {
             const response = await fetch(this.authorsPath);
             
             if (!response.ok) {
-                // console.warn(`Unable to load ${this.authorsPath}`);
+                console.warn(`Unable to load ${this.authorsPath}`);
                 // this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
                 return;
             }
@@ -537,12 +537,12 @@ class PostDetailLoader {
             if (activeAuthor) {
                 this.activeAuthor = activeAuthor;
             } else {
-                // console.warn('No active author found, using default author');
+                console.warn('No active author found, using default author');
                 this.activeAuthor = { name: 'House Chef', bio: '' };
             }
             
         } catch (error) {
-            // console.error('Error loading authors:', error);
+            console.error('Error loading authors:', error);
             // this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
         }
     }
@@ -573,29 +573,29 @@ class PostDetailLoader {
             const response = await fetch(jsonUrl);
             
             if (!response.ok) {
-                // console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
+                console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
                 return null;
             }
             
             const postData = await response.json();
             
             if (!postData.title) {
-                // console.warn('⚠️ Post missing title, adding default');
+                console.warn('⚠️ Post missing title, adding default');
                 postData.title = postSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
             }
             
             if (!postData.description) {
-                // console.warn('⚠️ Post missing description, adding default');
+                console.warn('⚠️ Post missing description, adding default');
                 postData.description = `Delicious ${postData.title} Post`;
             }
             
             if (!postData.ingredients || !Array.isArray(postData.ingredients)) {
-                // console.warn('⚠️ Post missing ingredients, adding defaults');
+                console.warn('⚠️ Post missing ingredients, adding defaults');
                 postData.ingredients = ['Ingredients list not available'];
             }
             
             if (!postData.instructions || !Array.isArray(postData.instructions)) {
-                // console.warn('⚠️ Post missing instructions, adding defaults');
+                console.warn('⚠️ Post missing instructions, adding defaults');
                 postData.instructions = ['Instructions not available'];
             }
             
@@ -605,7 +605,7 @@ class PostDetailLoader {
             return postData;
             
         } catch (error) {
-            // console.error(`💥 Error loading Post ${postSlug}:`, error);
+            console.error(`💥 Error loading Post ${postSlug}:`, error);
             return this.createFallbackPost(postSlug);
         }
     }
@@ -813,7 +813,7 @@ class PostDetailLoader {
 
     displayPost(post) {
         if (!this.contentContainer) {
-            // console.error('Container not available to display Post');
+            console.error('Container not available to display Post');
             return;
         }
 
@@ -980,12 +980,12 @@ function initPostDetail() {
     initAttempts++;
     
     if (initAttempts > maxInitAttempts) {
-        // console.error('❌ Max init attempts reached');
+        console.error('❌ Max init attempts reached');
         return;
     }
     
     if (postDetailLoaderInstance && postDetailLoaderInstance.initialized) {
-        // console.log('✅ Already initialized');
+        console.log('✅ Already initialized');
         return;
     }
 
@@ -995,7 +995,7 @@ function initPostDetail() {
                              window.location.href.includes('post-detail');
     
     if (!isPostDetailPage) {
-        // console.log('ℹ️ Not on post-detail page, skipping initialization');
+        console.log('ℹ️ Not on post-detail page, skipping initialization');
         return;
     }
 
@@ -1003,7 +1003,7 @@ function initPostDetail() {
     window.PostDetailLoader = postDetailLoaderInstance;
     
     postDetailLoaderInstance.init().catch(error => {
-        // console.error('💥 Initialization failed:', error);
+        console.error('💥 Initialization failed:', error);
     });
 }
 
