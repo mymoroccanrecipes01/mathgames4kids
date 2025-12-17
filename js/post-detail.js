@@ -1,7 +1,7 @@
 class PostDetailLoader {
     constructor() {
         this.contentContainer = null;
-        this.postsPath = './Posts/';
+        this.postsPath = './posts/';
         this.authorsPath = './authors/authors.json';
         this.initialized = false;
         this.activeAuthor = null;
@@ -29,7 +29,7 @@ class PostDetailLoader {
             await this.waitForContainer();
             
             if (!this.contentContainer) {
-                console.error('Container #Post-content not found');
+                // console.error('Container #Post-content not found');
                 return;
             }
 
@@ -55,7 +55,7 @@ class PostDetailLoader {
             this.initialized = true;
 
         } catch (error) {
-            console.error('Error loading Post:', error);
+            // console.error('Error loading Post:', error);
             this.showError('Error loading Post');
         }
     }
@@ -66,7 +66,7 @@ class PostDetailLoader {
         this.contentContainer = document.getElementById('Post-content');
         
         if (this.contentContainer) {
-            console.log('✅ Post-content container found');
+            // console.log('✅ Post-content container found');
             return;
         }
         
@@ -82,7 +82,7 @@ class PostDetailLoader {
             mainContent.appendChild(postContainer);
             
             this.contentContainer = postContainer;
-            console.log('✅ Post-content container created in main-content');
+            // console.log('✅ Post-content container created in main-content');
             return;
         }
         
@@ -101,17 +101,26 @@ class PostDetailLoader {
             body.appendChild(mainContentDiv);
             
             this.contentContainer = postContainer;
-            console.log('✅ Both main-content and Post-content containers created');
+            // console.log('✅ Both main-content and Post-content containers created');
             return;
         }
         
-        console.error('❌ Unable to create container - no body element found');
+        // console.error('❌ Unable to create container - no body element found');
     }
 
     createPinterestButton(imageUrl, title, description = '') {
         const pinterestUrl = this.generatePinterestUrl(imageUrl, title, description);
         
-        return `   
+        return `
+            <button class="pinterest-pin-btn" 
+                    onclick="window.open('${pinterestUrl}', '_blank', 'width=750,height=320')"
+                    title="Pin on Pinterest"
+                    aria-label="Pin this Post image on Pinterest">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.219-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.888-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.357-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.001 24c6.624 0 11.999-5.373 11.999-12C24 5.372 18.626.001 12.001.001z"/>
+                </svg>
+                PIN
+            </button>
         `;
     }
 
@@ -253,7 +262,7 @@ class PostDetailLoader {
     // ✅ CORRECTION: loadRecentPosts avec post en minuscule
     async loadRecentPosts(categoryId = null) {
         try {
-            console.log('Loading recent posts...', categoryId ? `filtered by category: ${categoryId}` : '');
+            // console.log('Loading recent posts...', categoryId ? `filtered by category: ${categoryId}` : '');
             
             const postFolders = await this.getPostFolders();
             
@@ -271,7 +280,7 @@ class PostDetailLoader {
             
             if (categoryId) {
                 validPosts = this.filterPostsByCategory(validPosts, categoryId);
-                console.log(`Filtered posts by category ${categoryId}:`, validPosts.length);
+                // console.log(`Filtered posts by category ${categoryId}:`, validPosts.length);
             }
             
             if (validPosts.length === 0) {
@@ -297,10 +306,10 @@ class PostDetailLoader {
                 isOnline: post.isOnline
             }));
 
-            console.log('Recent posts loaded:', this.recentPosts.length);
+            // console.log('Recent posts loaded:', this.recentPosts.length);
             
         } catch (error) {
-            console.error('Error loading recent posts:', error);
+            // console.error('Error loading recent posts:', error);
             await this.setDefaultRecentPosts();
         }
     }
@@ -323,13 +332,13 @@ class PostDetailLoader {
 
     async getPostFolders() {
         try {
-            const indexResponse = await fetch(`${this.postsPath}index.json`);          
+            const indexResponse = await fetch(`${this.postsPath}index.json`);
             if (indexResponse.ok) {
                 const indexData = await indexResponse.json();
                 return indexData.folders || indexData;
             }
         } catch (error) {
-            console.log('Fichier index.json non trouvé, scan automatique...');
+            // console.log('Fichier index.json non trouvé, scan automatique...');
         }
 
         return await this.scanPostFolders();
@@ -383,7 +392,7 @@ class PostDetailLoader {
             };
             
         } catch (error) {
-            console.error(`Erreur lors du chargement de la poste ${folderName}:`, error);
+            // console.error(`Erreur lors du chargement de la poste ${folderName}:`, error);
             return null;
         }
     }
@@ -460,7 +469,7 @@ class PostDetailLoader {
             ];
 
         } catch (error) {
-            console.error('Erreur lors du chargement des postes par défaut:', error);
+            // console.error('Erreur lors du chargement des postes par défaut:', error);
             
             this.recentPosts = [
                 {
@@ -485,7 +494,7 @@ class PostDetailLoader {
             `;
         }
 
-        console.log(this.recentPosts);
+        // console.log(this.recentPosts);
         
         const postsHTML = this.recentPosts.map(post => `
             <div class="mini-Post" onclick="loadPost('${post.slug}')" style="cursor: pointer; ${!post.isOnline ? 'display:none;' : ''}">
@@ -517,7 +526,7 @@ class PostDetailLoader {
             const response = await fetch(this.authorsPath);
             
             if (!response.ok) {
-                console.warn(`Unable to load ${this.authorsPath}`);
+                // console.warn(`Unable to load ${this.authorsPath}`);
                 // this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
                 return;
             }
@@ -528,12 +537,12 @@ class PostDetailLoader {
             if (activeAuthor) {
                 this.activeAuthor = activeAuthor;
             } else {
-                console.warn('No active author found, using default author');
+                // console.warn('No active author found, using default author');
                 this.activeAuthor = { name: 'House Chef', bio: '' };
             }
             
         } catch (error) {
-            console.error('Error loading authors:', error);
+            // console.error('Error loading authors:', error);
             // this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
         }
     }
@@ -564,29 +573,29 @@ class PostDetailLoader {
             const response = await fetch(jsonUrl);
             
             if (!response.ok) {
-                console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
+                // console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
                 return null;
             }
             
             const postData = await response.json();
             
             if (!postData.title) {
-                console.warn('⚠️ Post missing title, adding default');
+                // console.warn('⚠️ Post missing title, adding default');
                 postData.title = postSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
             }
             
             if (!postData.description) {
-                console.warn('⚠️ Post missing description, adding default');
+                // console.warn('⚠️ Post missing description, adding default');
                 postData.description = `Delicious ${postData.title} Post`;
             }
             
             if (!postData.ingredients || !Array.isArray(postData.ingredients)) {
-                console.warn('⚠️ Post missing ingredients, adding defaults');
+                // console.warn('⚠️ Post missing ingredients, adding defaults');
                 postData.ingredients = ['Ingredients list not available'];
             }
             
             if (!postData.instructions || !Array.isArray(postData.instructions)) {
-                console.warn('⚠️ Post missing instructions, adding defaults');
+                // console.warn('⚠️ Post missing instructions, adding defaults');
                 postData.instructions = ['Instructions not available'];
             }
             
@@ -596,7 +605,7 @@ class PostDetailLoader {
             return postData;
             
         } catch (error) {
-            console.error(`💥 Error loading Post ${postSlug}:`, error);
+            // console.error(`💥 Error loading Post ${postSlug}:`, error);
             return this.createFallbackPost(postSlug);
         }
     }
@@ -679,7 +688,7 @@ class PostDetailLoader {
                             `<img class="" src="${imageUrl}" alt="${section.upload.context || 'Post image'}" 
                                  onerror="this.style.display='none'">`,
                             section.upload.context || 'Post Step',
-                            'Step by step guide',
+                            'Step by step cooking guide',
                             imageUrl
                         )}
                         <div class="image-caption">${section.upload.context || ''}</div>
@@ -804,7 +813,7 @@ class PostDetailLoader {
 
     displayPost(post) {
         if (!this.contentContainer) {
-            console.error('Container not available to display Post');
+            // console.error('Container not available to display Post');
             return;
         }
 
@@ -971,12 +980,12 @@ function initPostDetail() {
     initAttempts++;
     
     if (initAttempts > maxInitAttempts) {
-        console.error('❌ Max init attempts reached');
+        // console.error('❌ Max init attempts reached');
         return;
     }
     
     if (postDetailLoaderInstance && postDetailLoaderInstance.initialized) {
-        console.log('✅ Already initialized');
+        // console.log('✅ Already initialized');
         return;
     }
 
@@ -986,7 +995,7 @@ function initPostDetail() {
                              window.location.href.includes('post-detail');
     
     if (!isPostDetailPage) {
-        console.log('ℹ️ Not on post-detail page, skipping initialization');
+        // console.log('ℹ️ Not on post-detail page, skipping initialization');
         return;
     }
 
@@ -994,7 +1003,7 @@ function initPostDetail() {
     window.PostDetailLoader = postDetailLoaderInstance;
     
     postDetailLoaderInstance.init().catch(error => {
-        console.error('💥 Initialization failed:', error);
+        // console.error('💥 Initialization failed:', error);
     });
 }
 
