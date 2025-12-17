@@ -332,8 +332,7 @@ class PostDetailLoader {
 
     async getPostFolders() {
         try {
-            const indexResponse = await fetch(`${this.postsPath}index.json`);
-            console.log("json"+indexResponse); 
+            const indexResponse = await fetch(`${this.postsPath}index.json`);          
             if (indexResponse.ok) {
                 const indexData = await indexResponse.json();
                 return indexData.folders || indexData;
