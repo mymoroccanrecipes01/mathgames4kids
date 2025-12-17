@@ -527,7 +527,7 @@ class PostDetailLoader {
             
             if (!response.ok) {
                 // console.warn(`Unable to load ${this.authorsPath}`);
-                this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
+                // this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
                 return;
             }
             
@@ -538,12 +538,12 @@ class PostDetailLoader {
                 this.activeAuthor = activeAuthor;
             } else {
                 // console.warn('No active author found, using default author');
-                this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
+                this.activeAuthor = { name: 'House Chef', bio: '' };
             }
             
         } catch (error) {
             // console.error('Error loading authors:', error);
-            this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
+            // this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
         }
     }
 
@@ -929,7 +929,7 @@ class PostDetailLoader {
                         <div style="height:54px"></div>
                         <img src="${this.activeAuthor ? this.activeAuthor.imagePath : 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&crop=faces'}" alt="Chef">
                         <div class="name">${this.activeAuthor ? this.activeAuthor.name : 'House Chef'}</div>
-                        <div class="bio">${this.activeAuthor ? this.activeAuthor.bio || 'Specialist in traditional and family dishes.' : 'Specialist in traditional and family dishes.'}</div>
+                        <div class="bio">${this.activeAuthor ? this.activeAuthor.description : ''}</div>
                     </div>
 
 
