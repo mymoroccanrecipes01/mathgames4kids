@@ -1,7 +1,7 @@
 class PostDetailLoader {
     constructor() {
         this.contentContainer = null;
-        this.postsPath = './posts/';
+        this.postsPath = './Posts/';
         this.authorsPath = './authors/authors.json';
         this.initialized = false;
         this.activeAuthor = null;
@@ -333,6 +333,7 @@ class PostDetailLoader {
     async getPostFolders() {
         try {
             const indexResponse = await fetch(`${this.postsPath}index.json`);
+            console.log("json"+indexResponse); 
             if (indexResponse.ok) {
                 const indexData = await indexResponse.json();
                 return indexData.folders || indexData;
