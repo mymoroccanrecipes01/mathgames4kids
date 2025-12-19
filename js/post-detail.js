@@ -574,7 +574,7 @@ class PostDetailLoader {
             }
 
             const postData = await response.json();
-            // console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
+             console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
             
             // Validation des données essentielles
             if (!postData.title) {
