@@ -539,13 +539,13 @@ class PostDetailLoader {
     async loadPostData(postSlug) {
         try {
             const jsonUrl = `${this.postsPath}${postSlug}/Post.json`;
-             console.log('📡 Fetching recipe from:', jsonUrl);
+            //  console.log('📡 Fetching recipe from:', jsonUrl);
             
             const response = await fetch(jsonUrl);
            // // console.log('📡 Response status:', response.status, response.statusText);
             
             if (!response.ok) {
-                console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
+                // console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
                 
                 // Essayer des variations du nom de fichier
                 const alternatives = [
