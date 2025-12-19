@@ -542,7 +542,7 @@ class PostDetailLoader {
               console.log('📡 Fetching recipe from:', jsonUrl);
             
             const response = await fetch(jsonUrl);
-           // // console.log('📡 Response status:', response.status, response.statusText);
+            console.log('📡 Response status:', response.status, response.statusText);
             
             if (!response.ok) {
                 // console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
