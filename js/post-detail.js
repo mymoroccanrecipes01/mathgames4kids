@@ -574,7 +574,7 @@ class PostDetailLoader {
             }
 
             const postData = await response.json();
-           // // console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
+            // console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
             
             // Validation des données essentielles
             if (!postData.title) {
@@ -600,12 +600,12 @@ class PostDetailLoader {
             postData.folderName = postSlug;
             postData.mainImage = this.getMainImage(postData, postSlug);
             
-        //    // // console.log('🎯 Recipe processed:', {
-        //         title: recipeData.title,
-        //         ingredients: recipeData.ingredients?.length || 0,
-        //         instructions: recipeData.instructions?.length || 0,
-        //         mainImage: recipeData.mainImage
-        //     });
+            console.log('🎯 Recipe processed:', {
+                title: postData.title,
+                ingredients: postData.ingredients?.length || 0,
+                instructions: postData.instructions?.length || 0,
+                mainImage: postData.mainImage
+            });
             
             return postData;
             
