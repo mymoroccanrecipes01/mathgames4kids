@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>crafts-for-kids posts - RSS Feed</title>
+    <link>http://www.mathgames4kids.com/base.html</link>
+    <description>Fresh crafts-for-kids posts and cooking inspiration</description>
+    <language>en-US</language>
+    <copyright>© 2025 www.mathgames4kids.com</copyright>
+    <managingEditor>info@mathgames4kids.com</managingEditor>
+    <webMaster>webmaster@mathgames4kids.com</webMaster>
+    <pubDate>Fri, 19 Dec 2025 18:24:22 +0100</pubDate>
+    <lastBuildDate>Fri, 19 Dec 2025 18:24:22 +0100</lastBuildDate>
+    <category>crafts-for-kids</category>
+    <generator>posts - RSS Feed www.mathgames4kids.com</generator>
+    <ttl>60</ttl>
+    <atom:link href="http://www.mathgames4kids.com/base.html/rss.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>http://www.mathgames4kids.com/base.html/images/logo.png</url>
+      <title>crafts-for-kids posts - RSS Feed</title>
+      <link>http://www.mathgames4kids.com/base.html</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
+    <item>
+      <title>Creative Under The Sea Crafts for Kids (Ages 3-5)</title>
+      <link>http://www.mathgames4kids.com/base.html?page=post-detail&amp;slug=creative-under-the-sea-crafts-for-kids-ages-3-5</link>
+      <description>Dive into creativity with these engaging under the sea crafts! Kids will learn about marine life while developing fine motor skills through hands-on activities. Perfect for ages 3-5, these crafts inspire imagination and exploration. Save these ideas for your next fun-filled crafting session!</description>
+      <pubDate>Fri, 19 Dec 2025 18:24:22 +0100</pubDate>
+      <guid isPermaLink="true">http://www.mathgames4kids.com/base.html?page=post-detail&amp;slug=creative-under-the-sea-crafts-for-kids-ages-3-5</guid>
+      <category>cat_1764517214_847</category>
+      <dc:creator>author_001</dc:creator>
+      <content:encoded><![CDATA[<div class="post-content" style="font-family: Arial, sans-serif; max-width: 600px;"><img src="http://www.mathgames4kids.com/Posts/creative-under-the-sea-crafts-for-kids-ages-3-5/images/creative-under-the-sea-crafts-for-kids-ages-3-5_mollykitchendaily-main_image_4.webp" alt="Creative Under The Sea Crafts for Kids (Ages 3-5)" style="width:100%;max-width:600px;height:auto;border-radius:8px;margin-bottom:20px;"><div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-bottom:20px;"><p style="margin:5px 0;"><strong>⏱️ Prep Time:</strong> 10 minutes</p><p style="margin:5px 0;"><strong>🍳 Cook Time:</strong> 0 minutes</p><p style="margin:5px 0;"><strong>⏰ Total Time:</strong> 10 minutes</p><p style="margin:5px 0;"><strong>🍽️ Servings:</strong> 1</p><p style="margin:5px 0;"><strong>📊 Difficulty:</strong> Easy</p></div><div style="margin-bottom:30px;"><h3 style="color:#E60023;border-bottom:2px solid #E60023;padding-bottom:5px;">👩‍🍳 Instructions</h3><ol style="line-height:1.8;"><li>Begin by gathering all materials on a clean workspace. Set up a crafting station with paints, scissors, and glue within reach.</li><li>Choose a paper plate and paint it in bright colors to create the base of your ocean creature. Allow the paint to dry completely.</li><li>While waiting for the paint to dry, cut out shapes from the second paper plate to create fins or tentacles for your creature.</li><li>Once the base is dry, glue the cut-out shapes onto the painted plate to form the creature's features.</li><li>Add googly eyes and any additional decorations like glitter or stickers to bring your creature to life.</li><li>If creating a hanging decoration, punch a hole at the top of the plate and thread a piece of string or yarn through it.</li><li>Display your finished ocean creature proudly or use it in imaginative play!</li><li>Encourage kids to share their creations and explain what they learned about marine life.</li></ol></div><div style="background:#fff3f3;padding:15px;border-radius:8px;border-left:4px solid #E60023;"><p><strong>📌 Pinterest Tags:</strong> #cat1764517214847 #Easypost #quickpost #30minutemeals #post #cooking #foodie #homemade #delicious</p></div><div style="text-align:center;margin-top:30px;padding:20px;background:#E60023;color:white;border-radius:8px;"><p style="margin:0;"><strong>📌 Save this post to Pinterest!</strong></p><p style="margin:5px 0 0 0;">Perfect for meal planning and sharing with friends</p></div></div>]]></content:encoded>
+      <media:content url="http://www.mathgames4kids.com/Posts/creative-under-the-sea-crafts-for-kids-ages-3-5/images/creative-under-the-sea-crafts-for-kids-ages-3-5_mollykitchendaily-main_image_4.webp" medium="image" type="image/webp">
+        <media:title>Creative Under The Sea Crafts for Kids (Ages 3-5)</media:title>
+        <media:description>Dive into creativity with these engaging under the sea crafts! Kids will learn about marine life while developing fine motor skills through hands-on activities. Perfect for ages 3-5, these crafts inspire imagination and exploration. Save these ideas for your next fun-filled crafting session!</media:description>
+      </media:content>
+      <media:group>
+        <media:category>post</media:category>
+        <media:keywords>cat1764517214847, Easypost, quickpost, 30minutemeals, post, cooking, foodie, homemade, delicious</media:keywords>
+      </media:group>
+    </item>
+  </channel>
+</rss>
