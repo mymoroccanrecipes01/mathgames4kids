@@ -37,10 +37,10 @@ class PostDetailLoader {
 
             const postSlug = this.getPostSlugFromUrl();
             
-            if (!postSlug) {
-                this.showError('Post name missing from URL');
-                return;
-            }
+            // if (!postSlug) {
+            //     this.showError('Post name missing from URL');
+            //     return;
+            // }
             
             const post = await this.loadPostData(postSlug);
             
