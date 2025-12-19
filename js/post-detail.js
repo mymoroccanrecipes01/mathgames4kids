@@ -539,7 +539,7 @@ class PostDetailLoader {
     async loadPostData(postSlug) {
         try {
             const jsonUrl = `${this.postsPath}${postSlug}/Post.json`;
-            //  console.log('📡 Fetching recipe from:', jsonUrl);
+              console.log('📡 Fetching recipe from:', jsonUrl);
             
             const response = await fetch(jsonUrl);
            // // console.log('📡 Response status:', response.status, response.statusText);
