@@ -598,6 +598,7 @@ class PostDetailLoader {
             }
 
             postData.folderName = postSlug;
+            console.log('📋 Post data loaded:');
             postData.mainImage = this.getMainImage(postData, postSlug);
             
             console.log('🎯 Recipe processed:', {
