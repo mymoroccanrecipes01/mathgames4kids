@@ -539,42 +539,86 @@ class PostDetailLoader {
     async loadPostData(postSlug) {
         try {
             const jsonUrl = `${this.postsPath}${postSlug}/Post.json`;
+             console.log('📡 Fetching recipe from:', jsonUrl);
+            
             const response = await fetch(jsonUrl);
+           // // console.log('📡 Response status:', response.status, response.statusText);
             
             if (!response.ok) {
-                // console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
+                console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
+                
+                // Essayer des variations du nom de fichier
+                const alternatives = [
+                    `${this.postsPath}${postSlug}.json`,
+                    `${this.postsPath}${postSlug}/data.json`,
+                    `${this.postsPath}${postSlug}/post-data.json`
+                ];
+                
+                for (const altUrl of alternatives) {
+                   // // console.log('🔄 Trying alternative:', altUrl);
+                    try {
+                        const altResponse = await fetch(altUrl);
+                        if (altResponse.ok) {
+                           // // console.log('✅ Found alternative recipe file:', altUrl);
+                            const altData = await altResponse.json();
+                            altData.folderName = postSlug;
+                            altData.mainImage = this.getMainImage(altData, postSlug);
+                            return altData;
+                        }
+                    } catch (altError) {
+                       // // console.log('❌ Alternative failed:', altUrl, altError.message);
+                    }
+                }
+                
                 return null;
             }
-            
+
             const postData = await response.json();
+           // // console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
             
+            // Validation des données essentielles
             if (!postData.title) {
-                // console.warn('⚠️ Post missing title, adding default');
+                console.warn('⚠️ Post missing title, adding default');
                 postData.title = postSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
             }
-            
+
             if (!postData.description) {
-                // console.warn('⚠️ Post missing description, adding default');
-                postData.description = `Delicious ${postData.title} Post`;
+                console.warn('⚠️ Post missing description, adding default');
+                postData.description = `Delicious ${postData.title} post`;
             }
             
             if (!postData.ingredients || !Array.isArray(postData.ingredients)) {
-                // console.warn('⚠️ Post missing ingredients, adding defaults');
-                postData.ingredients = ['Ingredients list not available'];
+                console.warn('⚠️ Post missing ingredients, adding defaults');
+                recipeData.ingredients = ['Ingredients list not available'];
             }
-            
+
             if (!postData.instructions || !Array.isArray(postData.instructions)) {
-                // console.warn('⚠️ Post missing instructions, adding defaults');
+                console.warn('⚠️ Post missing instructions, adding defaults');
                 postData.instructions = ['Instructions not available'];
             }
-            
+
             postData.folderName = postSlug;
             postData.mainImage = this.getMainImage(postData, postSlug);
+            
+        //    // // console.log('🎯 Recipe processed:', {
+        //         title: recipeData.title,
+        //         ingredients: recipeData.ingredients?.length || 0,
+        //         instructions: recipeData.instructions?.length || 0,
+        //         mainImage: recipeData.mainImage
+        //     });
             
             return postData;
             
         } catch (error) {
-            // console.error(`💥 Error loading Post ${postSlug}:`, error);
+           // console.error(`💥 Error loading recipe ${recipeSlug}:`, error);
+            
+            // Retourner une recette de fallback si possible
+            if (error.name === 'SyntaxError') {
+               // console.error('❌ JSON parsing failed - invalid JSON format');
+            } else if (error.name === 'TypeError') {
+               // console.error('❌ Network error - check file paths and server');
+            }
+
             return this.createFallbackPost(postSlug);
         }
     }
