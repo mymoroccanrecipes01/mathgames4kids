@@ -62,50 +62,19 @@ class PostDetailLoader {
 
     // ✅ CORRECTION: Méthode waitForContainer qui crée le conteneur s'il n'existe pas
     async waitForContainer() {
-        // Chercher d'abord le conteneur Post-content
-        this.contentContainer = document.getElementById('Post-content');
+        const maxAttempts = 50;
+        const baseDelay = 100;
         
-        if (this.contentContainer) {
-            // console.log('✅ Post-content container found');
-            return;
+        for (let i = 0; i < maxAttempts; i++) {
+            this.contentContainer = document.getElementById('post-content');
+            if (this.contentContainer) {
+               // // console.log(`Container #post-content found after ${i + 1} attempt(s)`);
+                return;
+            }
+            
+            const delay = baseDelay * (i < 10 ? 1 : 2);
+            await new Promise(resolve => setTimeout(resolve, delay));
         }
-        
-        // Si le conteneur n'existe pas, le créer dans #main-content
-        const mainContent = document.getElementById('main-content');
-        
-        if (mainContent) {
-            const postContainer = document.createElement('div');
-            postContainer.id = 'Post-content';
-            postContainer.className = 'post-detail-container';
-            
-            mainContent.innerHTML = '';
-            mainContent.appendChild(postContainer);
-            
-            this.contentContainer = postContainer;
-            // console.log('✅ Post-content container created in main-content');
-            return;
-        }
-        
-        // Si main-content n'existe pas non plus, créer les deux
-        const body = document.body || document.querySelector('body');
-        if (body) {
-            const mainContentDiv = document.createElement('div');
-            mainContentDiv.id = 'main-content';
-            mainContentDiv.style.padding = '20px';
-            
-            const postContainer = document.createElement('div');
-            postContainer.id = 'Post-content';
-            postContainer.className = 'post-detail-container';
-            
-            mainContentDiv.appendChild(postContainer);
-            body.appendChild(mainContentDiv);
-            
-            this.contentContainer = postContainer;
-            // console.log('✅ Both main-content and Post-content containers created');
-            return;
-        }
-        
-        // console.error('❌ Unable to create container - no body element found');
     }
 
     createPinterestButton(imageUrl, title, description = '') {
