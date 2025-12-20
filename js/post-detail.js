@@ -536,141 +536,252 @@ class PostDetailLoader {
         return null;
     }
 
-async loadPostData(postSlug) {
+// ✅ MÉTHODE COMPLÈTE À REMPLACER DANS PostDetailLoader
+    async loadPostData(postSlug) {
         try {
-            const jsonUrl = `${this.postsPath}${postSlug}/Post.json`;
-            console.log('📡 Fetching post from:', jsonUrl);
+            console.log('📡 Chargement du post:', postSlug);
             
-            const response = await fetch(jsonUrl);
-            console.log('📡 Response status:', response.status, response.statusText);
-            console.log('📡 Response content-type:', response.headers.get('content-type'));
-            
-            if (!response.ok) {
-                console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
-                
-                // Essayer des variations du nom de fichier
-                const alternatives = [
-                    `${this.postsPath}${postSlug}.json`,
-                    `${this.postsPath}${postSlug}/data.json`,
-                    `${this.postsPath}${postSlug}/post-data.json`
-                ];
-                
-                for (const altUrl of alternatives) {
-                    console.log('🔄 Trying alternative:', altUrl);
-                    try {
-                        const altResponse = await fetch(altUrl);
-                        
-                        // Vérifier que c'est bien du JSON
-                        const contentType = altResponse.headers.get('content-type');
-                        if (!altResponse.ok || !contentType || !contentType.includes('application/json')) {
-                            console.log('❌ Alternative not JSON or not found:', altUrl);
-                            continue;
-                        }
-                        
-                        const altData = await altResponse.json();
-                        console.log('✅ Found alternative post file:', altUrl);
-                        altData.folderName = postSlug;
-                        altData.mainImage = this.getMainImage(altData, postSlug);
-                        return altData;
-                    } catch (altError) {
-                        console.log('❌ Alternative failed:', altUrl, altError.message);
-                    }
-                }
-                
-                console.error('❌ No valid post file found for:', postSlug);
-                return this.createFallbackPost(postSlug);
-            }
-            
-            // ✅ CORRECTION: Vérifier le Content-Type avant de parser
-            const contentType = response.headers.get('content-type');
-            console.log('📄 Content-Type:', contentType);
-            
-            if (!contentType || !contentType.includes('application/json')) {
-                console.error('❌ Response is not JSON, got:', contentType);
-                const textContent = await response.text();
-                console.error('Response preview:', textContent.substring(0, 200));
-                
-                // Si c'est du HTML, c'est probablement une page 404
-                if (textContent.includes('<html') || textContent.includes('<!DOCTYPE')) {
-                    console.error('❌ Server returned HTML instead of JSON - file probably doesn\'t exist');
-                    return this.createFallbackPost(postSlug);
-                }
-                
-                return this.createFallbackPost(postSlug);
-            }
-            
-            // ✅ Parser le JSON uniquement si le Content-Type est correct
-            const postData = await response.json();
-            console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
-            
-            // Validation des données essentielles
-            if (!postData.title) {
-                console.warn('⚠️ Post missing title, adding default');
-                postData.title = postSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            // Vérifier le cache
+            if (this.postsCache && this.postsCache.has(postSlug)) {
+                console.log('📦 Post depuis cache');
+                return this.postsCache.get(postSlug);
             }
 
-            if (!postData.description) {
-                console.warn('⚠️ Post missing description, adding default');
-                postData.description = `Delicious ${postData.title} post`;
-            }
-            
-            if (!postData.ingredients || !Array.isArray(postData.ingredients)) {
-                console.warn('⚠️ Post missing ingredients, adding defaults');
-                postData.ingredients = ['Ingredients list not available'];
+            // Initialiser le cache si nécessaire
+            if (!this.postsCache) {
+                this.postsCache = new Map();
             }
 
-            if (!postData.instructions || !Array.isArray(postData.instructions)) {
-                console.warn('⚠️ Post missing instructions, adding defaults');
-                postData.instructions = ['Instructions not available'];
+            // ✅ STRATÉGIE 1: Essayer fetch direct avec validation stricte
+            const directResult = await this.tryDirectFetch(postSlug);
+            if (directResult) {
+                this.postsCache.set(postSlug, directResult);
+                return directResult;
             }
 
-            postData.folderName = postSlug;
-            postData.mainImage = this.getMainImage(postData, postSlug);
-            
-            console.log('🎯 Post processed:', {
-                title: postData.title,
-                ingredients: postData.ingredients?.length || 0,
-                instructions: postData.instructions?.length || 0,
-                mainImage: postData.mainImage
-            });
-            
-            return postData;
+            // ✅ STRATÉGIE 2: Charger via index.json
+            console.log('⚠️ Fetch direct échoué, essai via index.json...');
+            const indexResult = await this.loadViaIndex(postSlug);
+            if (indexResult) {
+                this.postsCache.set(postSlug, indexResult);
+                return indexResult;
+            }
+
+            // ✅ STRATÉGIE 3: Chercher dans le DOM (données embarquées)
+            console.log('⚠️ Index échoué, recherche dans le DOM...');
+            const domResult = await this.loadFromDOM(postSlug);
+            if (domResult) {
+                this.postsCache.set(postSlug, domResult);
+                return domResult;
+            }
+
+            // Fallback final
+            console.log('⚠️ Toutes les stratégies ont échoué, utilisation du fallback');
+            return this.createFallbackPost(postSlug);
             
         } catch (error) {
-            console.error(`💥 Error loading post ${postSlug}:`, error);
-            console.error('Error details:', {
-                name: error.name,
-                message: error.message,
-                stack: error.stack?.substring(0, 200)
-            });
-            
-            // Retourner une recette de fallback
-            if (error.name === 'SyntaxError') {
-                console.error('❌ JSON parsing failed - server returned invalid JSON or HTML');
-            } else if (error.name === 'TypeError') {
-                console.error('❌ Network error - check file paths and server configuration');
-            }
-
+            console.error('💥 Erreur loadPostData:', error);
             return this.createFallbackPost(postSlug);
         }
     }
 
-    createFallbackPost(postSlug) {
+    // ✅ Essayer le fetch direct avec validation
+    async tryDirectFetch(postSlug) {
+        const urls = [
+            `${this.postsPath}${postSlug}/Post.json`,
+            `${this.postsPath}${postSlug}/post.json`,
+            `${this.postsPath}${postSlug}/data.json`
+        ];
+
+        for (const url of urls) {
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) continue;
+
+                const text = await response.text();
+
+                // ✅ VALIDATION: Rejeter si c'est du HTML
+                if (this.isHTML(text)) {
+                    console.log('❌', url, '→ HTML détecté, pas JSON');
+                    continue;
+                }
+
+                // ✅ Parser et valider le JSON
+                const data = JSON.parse(text);
+                
+                if (!data || typeof data !== 'object') {
+                    console.log('❌', url, '→ JSON invalide');
+                    continue;
+                }
+
+                console.log('✅ JSON valide chargé depuis:', url);
+                return this.validatePostData(data, postSlug);
+
+            } catch (error) {
+                console.log('❌', url, '→', error.message);
+                continue;
+            }
+        }
+
+        return null;
+    }
+
+    // ✅ Vérifier si le contenu est du HTML
+    isHTML(text) {
+        const htmlIndicators = [
+            '<script>',
+            '<!DOCTYPE',
+            '<html',
+            'window.location',
+            '</html>',
+            '<head>',
+            '<body>'
+        ];
+        
+        return htmlIndicators.some(indicator => 
+            text.toLowerCase().includes(indicator.toLowerCase())
+        );
+    }
+
+    // ✅ Charger via index.json
+    async loadViaIndex(postSlug) {
+        try {
+            const response = await fetch(`${this.postsPath}index.json`);
+            
+            if (!response.ok) return null;
+
+            const text = await response.text();
+            
+            if (this.isHTML(text)) {
+                console.log('❌ index.json retourne du HTML');
+                return null;
+            }
+
+            const indexData = JSON.parse(text);
+            const folders = indexData.folders || indexData;
+
+            if (!Array.isArray(folders)) return null;
+
+            // Chercher le slug exact ou similaire
+            const found = folders.find(f => 
+                f === postSlug || 
+                f.toLowerCase() === postSlug.toLowerCase() ||
+                postSlug.includes(f) ||
+                f.includes(postSlug)
+            );
+
+            if (!found) {
+                console.log('❌ Slug non trouvé dans index.json');
+                console.log('Disponibles:', folders.slice(0, 5).join(', '), '...');
+                return null;
+            }
+
+            console.log('✅ Slug trouvé dans index:', found);
+            return await this.tryDirectFetch(found);
+
+        } catch (error) {
+            console.error('❌ Erreur loadViaIndex:', error);
+            return null;
+        }
+    }
+
+    // ✅ Chercher les données dans le DOM
+    async loadFromDOM(postSlug) {
+        try {
+            // Chercher un élément avec data-post
+            const dataElement = document.querySelector(`[data-post-slug="${postSlug}"]`);
+            
+            if (dataElement && dataElement.dataset.postJson) {
+                const data = JSON.parse(dataElement.dataset.postJson);
+                console.log('✅ Post chargé depuis data-post-json');
+                return this.validatePostData(data, postSlug);
+            }
+
+            // Chercher dans JSON-LD
+            const jsonLdScripts = document.querySelectorAll('script[type="application/ld+json"]');
+            
+            for (const script of jsonLdScripts) {
+                try {
+                    const data = JSON.parse(script.textContent);
+                    
+                    if (data['@type'] === 'Recipe' || data['@type'] === 'Article') {
+                        console.log('✅ Post trouvé dans JSON-LD');
+                        return this.convertStructuredData(data, postSlug);
+                    }
+                } catch (e) {
+                    continue;
+                }
+            }
+
+            return null;
+
+        } catch (error) {
+            console.error('❌ Erreur loadFromDOM:', error);
+            return null;
+        }
+    }
+
+    // ✅ Convertir données structurées en format post
+    convertStructuredData(data, postSlug) {
         return {
-            title: postSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-            description: 'This Post is temporarily unavailable. Please try again later.',
+            title: data.name || data.headline || postSlug,
+            description: data.description || '',
+            ingredients: data.recipeIngredient || data.ingredients || [],
+            instructions: (data.recipeInstructions || data.instructions || [])
+                .map(i => i.text || i.name || i),
+            prep_time: this.parseDuration(data.prepTime),
+            cook_time: this.parseDuration(data.cookTime),
+            total_time: this.parseDuration(data.totalTime),
+            servings: data.recipeYield || data.yield || '',
+            mainImage: data.image?.url || data.image || '',
             folderName: postSlug,
-            mainImage: 'https://via.placeholder.com/400x300?text=Post+Unavailable',
-            ingredients: ['Post ingredients are currently unavailable'],
-            instructions: ['Post instructions are currently unavailable'],
-            prep_time: 0,
-            cook_time: 0,
-            total_time: 0,
-            servings: 'Unknown',
-            difficulty: 'unknown',
-            category: 'Unavailable',
-            structured_content: []
+            category: data.recipeCategory || data.category || '',
+            difficulty: 'medium'
         };
+    }
+
+    // ✅ Parser durée ISO 8601 (ex: PT30M = 30 minutes)
+    parseDuration(iso) {
+        if (!iso) return 0;
+        const match = iso.match(/PT(\d+)M/);
+        return match ? parseInt(match[1]) : 0;
+    }
+
+    // ✅ Valider et nettoyer les données
+    validatePostData(data, postSlug) {
+        const post = { ...data };
+
+        post.folderName = postSlug;
+        
+        if (!post.title) {
+            post.title = postSlug
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        if (!post.description) {
+            post.description = `Delicious ${post.title}`;
+        }
+
+        if (!Array.isArray(post.ingredients)) {
+            post.ingredients = ['Ingredients not available'];
+        }
+
+        if (!Array.isArray(post.instructions)) {
+            post.instructions = ['Instructions not available'];
+        }
+
+        post.mainImage = post.mainImage || this.getMainImage(post, postSlug);
+        post.prep_time = post.prep_time || 0;
+        post.cook_time = post.cook_time || 0;
+        post.total_time = post.total_time || post.prep_time + post.cook_time;
+        post.servings = post.servings || 'Not specified';
+        post.difficulty = post.difficulty || 'medium';
+
+        return post;
     }
 
     getMainImage(postData, folderName) {
@@ -678,12 +789,11 @@ async loadPostData(postSlug) {
             return `./${postData.image_path}`;
         }
         
-        if (postData.images && postData.images.length > 0) {
+        if (postData.images && Array.isArray(postData.images) && postData.images.length > 0) {
             const mainImg = postData.images.find(img => img.type === 'main');
-            if (mainImg && mainImg.filePath) {
+            if (mainImg?.filePath) {
                 return `./${mainImg.filePath}`;
             }
-            
             if (postData.images[0].filePath) {
                 return `./${postData.images[0].filePath}`;
             }
@@ -693,8 +803,35 @@ async loadPostData(postSlug) {
             return `./posts/${folderName}/images/${postData.image}`;
         }
         
-        return 'https://via.placeholder.com/400x300?text=Image+not+available';
+        // Essayer le nom standard
+        return `./posts/${folderName}/images/${folderName}_image_1.webp`;
     }
+
+    createFallbackPost(postSlug) {
+        const title = postSlug
+            .replace(/-/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+        
+        return {
+            title: title,
+            description: `This post is temporarily unavailable.`,
+            folderName: postSlug,
+            mainImage: `./posts/${postSlug}/images/${postSlug}_image_1.webp`,
+            ingredients: ['Post data is temporarily unavailable'],
+            instructions: ['Please try refreshing the page or contact support'],
+            prep_time: 0,
+            cook_time: 0,
+            total_time: 0,
+            servings: 'Not specified',
+            difficulty: 'medium',
+            category: 'Unavailable',
+            structured_content: [],
+            isOnline: false
+        };
+    }
+
+
+
 
     renderStructuredContent(structuredContent) {
         if (!structuredContent || !Array.isArray(structuredContent)) {
