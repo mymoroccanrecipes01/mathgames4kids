@@ -29,7 +29,7 @@ class PostDetailLoader {
             await this.waitForContainer();
             
             if (!this.contentContainer) {
-                // console.error('Container #Post-content not found');
+                // // console..error('Container #Post-content not found');
                 return;
             }
 
@@ -55,7 +55,7 @@ class PostDetailLoader {
             this.initialized = true;
 
         } catch (error) {
-            // console.error('Error loading Post:', error);
+            // // console..error('Error loading Post:', error);
             this.showError('Error loading Post');
         }
     }
@@ -68,7 +68,7 @@ class PostDetailLoader {
         for (let i = 0; i < maxAttempts; i++) {
             this.contentContainer = document.getElementById('post-content');
             if (this.contentContainer) {
-               // // console.log(`Container #post-content found after ${i + 1} attempt(s)`);
+               // // // console..log(`Container #post-content found after ${i + 1} attempt(s)`);
                 return;
             }
             
@@ -231,7 +231,7 @@ class PostDetailLoader {
     // ✅ CORRECTION: loadRecentPosts avec post en minuscule
     async loadRecentPosts(categoryId = null) {
         try {
-            // console.log('Loading recent posts...', categoryId ? `filtered by category: ${categoryId}` : '');
+            // // console..log('Loading recent posts...', categoryId ? `filtered by category: ${categoryId}` : '');
             
             const postFolders = await this.getPostFolders();
             
@@ -249,7 +249,7 @@ class PostDetailLoader {
             
             if (categoryId) {
                 validPosts = this.filterPostsByCategory(validPosts, categoryId);
-                // console.log(`Filtered posts by category ${categoryId}:`, validPosts.length);
+                // // console..log(`Filtered posts by category ${categoryId}:`, validPosts.length);
             }
             
             if (validPosts.length === 0) {
@@ -275,10 +275,10 @@ class PostDetailLoader {
                 isOnline: post.isOnline
             }));
 
-            // console.log('Recent posts loaded:', this.recentPosts.length);
+            // // console..log('Recent posts loaded:', this.recentPosts.length);
             
         } catch (error) {
-            // console.error('Error loading recent posts:', error);
+            // // console..error('Error loading recent posts:', error);
             await this.setDefaultRecentPosts();
         }
     }
@@ -307,7 +307,7 @@ class PostDetailLoader {
                 return indexData.folders || indexData;
             }
         } catch (error) {
-            // console.log('Fichier index.json non trouvé, scan automatique...');
+            // // console..log('Fichier index.json non trouvé, scan automatique...');
         }
 
         return await this.scanPostFolders();
@@ -361,7 +361,7 @@ class PostDetailLoader {
             };
             
         } catch (error) {
-            // console.error(`Erreur lors du chargement de la poste ${folderName}:`, error);
+            // // console..error(`Erreur lors du chargement de la poste ${folderName}:`, error);
             return null;
         }
     }
@@ -438,7 +438,7 @@ class PostDetailLoader {
             ];
 
         } catch (error) {
-            // console.error('Erreur lors du chargement des postes par défaut:', error);
+            // // console..error('Erreur lors du chargement des postes par défaut:', error);
             
             this.recentPosts = [
                 {
@@ -463,7 +463,7 @@ class PostDetailLoader {
             `;
         }
 
-        // console.log(this.recentPosts);
+        // // console..log(this.recentPosts);
         
         const postsHTML = this.recentPosts.map(post => `
             <div class="mini-Post" onclick="loadPost('${post.slug}')" style="cursor: pointer; ${!post.isOnline ? 'display:none;' : ''}">
@@ -495,7 +495,7 @@ class PostDetailLoader {
             const response = await fetch(this.authorsPath);
             
             if (!response.ok) {
-                // console.warn(`Unable to load ${this.authorsPath}`);
+                // // console..warn(`Unable to load ${this.authorsPath}`);
                 // this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
                 return;
             }
@@ -506,12 +506,12 @@ class PostDetailLoader {
             if (activeAuthor) {
                 this.activeAuthor = activeAuthor;
             } else {
-                // console.warn('No active author found, using default author');
+                // // console..warn('No active author found, using default author');
                 this.activeAuthor = { name: 'House Chef', bio: '' };
             }
             
         } catch (error) {
-            // console.error('Error loading authors:', error);
+            // // console..error('Error loading authors:', error);
             // this.activeAuthor = { name: 'House Chef', bio: 'Specialist in traditional and family dishes.' };
         }
     }
@@ -539,13 +539,13 @@ class PostDetailLoader {
     async loadPostData(postSlug) {
         try {
             const jsonUrl = `${this.postsPath}${postSlug}/Post.json`;
-              console.log('📡 Fetching recipe from:', jsonUrl);
+              // console..log('📡 Fetching recipe from:', jsonUrl);
             
             const response = await fetch(jsonUrl);
-            console.log('📡 Response status:', response.status, response.statusText);
+            // console..log('📡 Response status:', response.status, response.statusText);
             
             if (!response.ok) {
-                // console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
+                // // console..warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
                 
                 // Essayer des variations du nom de fichier
                 const alternatives = [
@@ -555,18 +555,18 @@ class PostDetailLoader {
                 ];
                 
                 for (const altUrl of alternatives) {
-                   // // console.log('🔄 Trying alternative:', altUrl);
+                   // // // console..log('🔄 Trying alternative:', altUrl);
                     try {
                         const altResponse = await fetch(altUrl);
                         if (altResponse.ok) {
-                           // // console.log('✅ Found alternative recipe file:', altUrl);
+                           // // // console..log('✅ Found alternative recipe file:', altUrl);
                             const altData = await altResponse.json();
                             altData.folderName = postSlug;
                             altData.mainImage = this.getMainImage(altData, postSlug);
                             return altData;
                         }
                     } catch (altError) {
-                       // // console.log('❌ Alternative failed:', altUrl, altError.message);
+                       // // // console..log('❌ Alternative failed:', altUrl, altError.message);
                     }
                 }
                 
@@ -574,33 +574,33 @@ class PostDetailLoader {
             }
 
             const postData = await response.json();
-           // // console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
+           // // // console..log('✅ Post data parsed successfully:', postData.title || 'Untitled');
             
             // Validation des données essentielles
             if (!postData.title) {
-                console.warn('⚠️ Post missing title, adding default');
+                // console..warn('⚠️ Post missing title, adding default');
                 postData.title = postSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
             }
 
             if (!postData.description) {
-                console.warn('⚠️ Post missing description, adding default');
+                // console..warn('⚠️ Post missing description, adding default');
                 postData.description = `Delicious ${postData.title} post`;
             }
             
             if (!postData.ingredients || !Array.isArray(postData.ingredients)) {
-                console.warn('⚠️ Post missing ingredients, adding defaults');
+                // console..warn('⚠️ Post missing ingredients, adding defaults');
                 recipeData.ingredients = ['Ingredients list not available'];
             }
 
             if (!postData.instructions || !Array.isArray(postData.instructions)) {
-                console.warn('⚠️ Post missing instructions, adding defaults');
+                // console..warn('⚠️ Post missing instructions, adding defaults');
                 postData.instructions = ['Instructions not available'];
             }
 
             postData.folderName = postSlug;
             postData.mainImage = this.getMainImage(postData, postSlug);
             
-        //    // // console.log('🎯 Recipe processed:', {
+        //    // // // console..log('🎯 Recipe processed:', {
         //         title: recipeData.title,
         //         ingredients: recipeData.ingredients?.length || 0,
         //         instructions: recipeData.instructions?.length || 0,
@@ -610,13 +610,13 @@ class PostDetailLoader {
             return postData;
             
         } catch (error) {
-           // console.error(`💥 Error loading recipe ${recipeSlug}:`, error);
+           // // console..error(`💥 Error loading recipe ${recipeSlug}:`, error);
             
             // Retourner une recette de fallback si possible
             if (error.name === 'SyntaxError') {
-               // console.error('❌ JSON parsing failed - invalid JSON format');
+               // // console..error('❌ JSON parsing failed - invalid JSON format');
             } else if (error.name === 'TypeError') {
-               // console.error('❌ Network error - check file paths and server');
+               // // console..error('❌ Network error - check file paths and server');
             }
 
             return this.createFallbackPost(postSlug);
@@ -826,7 +826,7 @@ class PostDetailLoader {
 
     displayPost(post) {
         if (!this.contentContainer) {
-            // console.error('Container not available to display Post');
+            // // console..error('Container not available to display Post');
             return;
         }
 
@@ -993,12 +993,12 @@ function initPostDetail() {
     initAttempts++;
     
     if (initAttempts > maxInitAttempts) {
-        // console.error('❌ Max init attempts reached');
+        // // console..error('❌ Max init attempts reached');
         return;
     }
     
     if (postDetailLoaderInstance && postDetailLoaderInstance.initialized) {
-        // console.log('✅ Already initialized');
+        // // console..log('✅ Already initialized');
         return;
     }
 
@@ -1008,7 +1008,7 @@ function initPostDetail() {
                              window.location.href.includes('post-detail');
     
     if (!isPostDetailPage) {
-        // console.log('ℹ️ Not on post-detail page, skipping initialization');
+        // // console..log('ℹ️ Not on post-detail page, skipping initialization');
         return;
     }
 
@@ -1016,7 +1016,7 @@ function initPostDetail() {
     window.PostDetailLoader = postDetailLoaderInstance;
     
     postDetailLoaderInstance.init().catch(error => {
-        // console.error('💥 Initialization failed:', error);
+        // // console..error('💥 Initialization failed:', error);
     });
 }
 
