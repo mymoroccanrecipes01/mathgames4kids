@@ -2,7 +2,7 @@ class PostLoader {
     constructor(containerId = 'items') {
         this.containerId = containerId;
         this.PostsContainer = null;
-        this.postsPath = './Posts/';
+        this.postsPath = './posts/';
         this.categoriesPath = './categories/'; // NOUVEAU: Chemin vers les catégories
         this.allPosts = [];
         this.filteredPosts = [];
@@ -829,7 +829,7 @@ class PostLoader {
         
         if (PostData.image) {
             const imageDir = PostData.image_dir || `${PostData.slug || PostData.folderName}/images`;
-            return `./Posts/${imageDir}/${PostData.image}`;
+            return `./posts/${imageDir}/${PostData.image}`;
         }
         
         return this.findMainImage(PostData.slug || PostData.folderName);
