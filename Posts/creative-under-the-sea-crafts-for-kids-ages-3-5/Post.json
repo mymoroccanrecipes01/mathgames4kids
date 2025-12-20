@@ -1,151 +1,165 @@
 {
-    "id": "Post_1765223686_278",
-    "slug": "creative-under-the-sea-crafts-for-kids-ages-3-5",
-    "title": "Creative Under The Sea Crafts for Kids (Ages 3-5)",
-    "promptIMG": "Professional educational content photography prompt: \"under the sea crafts, bright and colorful setup on clean white table, child-friendly materials clearly visible, organized and inviting presentation, natural lighting from window, educational workspace aesthetic, vibrant colors, engaging composition, high-quality educational photography, professional styling, inspirational learning environment --no blur, cluttered background, dark lighting, unprofessional setup --quality 2 --ar 4:3 --stylize 300\"",
+    "title": "Classic Southern Pecan Pie Recipe for Celebrations",
+    "voice": "D",
+    "promptIMG": "Professional food photography prompt: \"Pecan pie, beautifully plated on a rustic wooden table, natural food photography, balanced sharp focus throughout entire image, zero blur, infinite depth of field, realistic food textures, warm kitchen background in sharp focus, natural window lighting, kitchen countertop visible, even focus distribution, documentary food photography style, professional food styling, appetizing presentation --no blur, depth of field, bokeh, over-sharpening, artificial enhancement --quality 2 --ar 4:3 --stylize 300\"",
     "isOnline": true,
-    "description": "Dive into creativity with these engaging under the sea crafts! Kids will learn about marine life while developing fine motor skills through hands-on activities. Perfect for ages 3-5, these crafts inspire imagination and exploration. Save these ideas for your next fun-filled crafting session!",
-    "category_id": "cat_1764517214_847",
-    "author_id": "author_001",
-    "ingredients": [],
-    "instructions": [
-        "Begin by gathering all materials on a clean workspace. Set up a crafting station with paints, scissors, and glue within reach.",
-        "Choose a paper plate and paint it in bright colors to create the base of your ocean creature. Allow the paint to dry completely.",
-        "While waiting for the paint to dry, cut out shapes from the second paper plate to create fins or tentacles for your creature.",
-        "Once the base is dry, glue the cut-out shapes onto the painted plate to form the creature's features.",
-        "Add googly eyes and any additional decorations like glitter or stickers to bring your creature to life.",
-        "If creating a hanging decoration, punch a hole at the top of the plate and thread a piece of string or yarn through it.",
-        "Display your finished ocean creature proudly or use it in imaginative play!",
-        "Encourage kids to share their creations and explain what they learned about marine life."
+    "description": "This classic Southern pecan pie is a must-try for any gathering! With its rich filling and crunchy pecans, it’s a dessert that brings everyone together. Serve it warm with a scoop of ice cream or a dollop of whipped cream. Save this recipe for your next holiday celebration!",
+    "hashtags": "#pecanpie #southernrecipes #dessertideas #holidaybaking #easyrecipes",
+    "difficulty": "Medium",
+    "prep_time": 15,
+    "cook_time": 50,
+    "servings": 8,
+    "ingredients": [
+        "1 pie crust (store-bought or homemade)",
+        "1 cup light corn syrup",
+        "1 cup brown sugar, packed",
+        "4 large eggs",
+        "1\/4 cup unsalted butter, melted (I use Kerrygold)",
+        "1 teaspoon vanilla extract",
+        "2 cups pecan halves",
+        "1\/4 teaspoon salt"
     ],
-    "prep_time": 10,
-    "cook_time": 0,
-    "total_time": 10,
-    "servings": 1,
-    "difficulty": "Easy",
-    "tips": "1. Age adaptation: For younger kids, pre-cut shapes for them to glue on. For older kids, encourage them to create their own designs. 2. Preparation secret: Lay out all materials in advance to minimize mess and keep kids focused. 3. Common challenge to avoid: Kids may get frustrated with drying time; have multiple projects ready to keep them engaged. 4. Extension activity: After crafting, read a book about ocean life to deepen their understanding. 5. Storage tip: Keep leftover materials in a labeled bin for future craft sessions.",
+    "instructions": [
+        "Preheat your oven to 350°F (175°C). Roll out the pie crust and fit it into a 9-inch pie pan, trimming any excess.",
+        "In a large bowl, whisk together the corn syrup, brown sugar, and melted butter until smooth. Add the eggs one at a time, mixing well after each addition.",
+        "Stir in the vanilla extract and salt. Fold in the pecan halves until they’re evenly coated.",
+        "Pour the filling into the prepared pie crust, spreading the pecans evenly on top.",
+        "Bake for 45-50 minutes, or until the filling is set and the top is golden brown. You’ll know it’s done when it jiggles slightly in the center.",
+        "Let the pie cool for at least 2 hours before slicing. Serve it warm or at room temperature, maybe with some whipped cream!"
+    ],
+    "tips": "Here are some tips to make your pecan pie a hit: \n\n1. **Use fresh pecans:** I always buy my pecans from a local farmer’s market when possible. Fresh nuts have a better flavor and crunch. \n2. **Don’t skip the cooling time:** It’s tempting to dive right in, but letting the pie cool helps it set properly. Trust me, it’s worth the wait! \n3. **Check for doneness:** If the edges start to brown too quickly, cover them with foil to prevent burning. \n4. **Storage:** Keep leftovers in the fridge for up to 4 days. Just reheat in the oven for a few minutes to enjoy again. \n5. **Experiment with flavors:** Sometimes, I add a splash of bourbon or a pinch of cinnamon for a twist. It adds a nice depth of flavor!",
+    "category_id": "cat_1761230294_638",
+    "image_keywords": [
+        "appetizing",
+        "delicious",
+        "homemade",
+        "fresh",
+        "colorful",
+        "comforting",
+        "family-friendly"
+    ],
     "structured_content": [
         {
-            "content": "<p>Get ready to dive into creativity with these fun under the sea crafts! Kids will explore marine life while developing essential fine motor skills through engaging hands-on activities. Perfect for ages 3-5, these crafts inspire imagination and exploration, allowing little ones to express their creativity while learning about the ocean. Watch as they transform simple materials into vibrant sea creatures, fostering a love for art and nature. This activity balances education and entertainment, making it a delightful addition to any crafting session!<\/p>"
+            "content": "<p>So I remember the first time I tried pecan pie. The aroma filled the kitchen, and I couldn't wait to dig in. This classic Southern pecan pie is rich, sweet, and has that perfect crunch from the pecans. The filling is gooey and just the right amount of sweet, making it a favorite at family gatherings. It's a recipe that brings back memories of holidays spent with loved ones, and I know you'll want to share it too!<\/p>"
         },
         {
             "note": {
-                "label": "Why Kids & Parents Love This Activity",
-                "content": "<ul><li>Develops fine motor skills through engaging, hands-on practice - perfect for preschoolers.<\/li><li>Screen-free learning that builds concentration and creativity.<\/li><li>Ideal for home, classrooms, or themed parties.<\/li><li>Uses simple, affordable materials most families already have at home.<\/li><li>Encourages imaginative play and storytelling, enhancing cognitive development.<\/li><li>Reinforces learning about marine life and environmental awareness.<\/li><\/ul>"
+                "label": "Why You'll Love This Recipe",
+                "content": "<ul><li>30 minutes prep time. That's it!<\/li><li>Tastes like you spent hours baking (you didn't).<\/li><li>My family fights over the last slice (no joke).<\/li><li>Great for potlucks or holiday dinners.<\/li><li>Leftovers? They taste even better the next day!<\/li><\/ul>"
             }
         },
         {
-            "content": "<p>This under the sea craft activity was created to inspire creativity and learning in young children. Observing kids as they paint and assemble their ocean creatures is truly magical. The excitement on their faces when they see their creations come to life is priceless. Parents often share how their children engage in imaginative play, using their crafted sea creatures in stories and adventures. It's heartwarming to witness their joy and pride in completing their projects, proving that crafting is not just fun but also a valuable learning experience.<\/p>"
+            "content": "<p>My grandma made this pecan pie every Thanksgiving. I remember her rolling out the dough and the way the filling bubbled as it baked. It was always the highlight of our meal. Now, I make it for my family, and it brings back those warm memories. Every time I serve it, I can see the smiles on their faces, just like mine back then.<\/p>"
         },
         {
-            "headline": "Materials You'll Need & Helpful Alternatives"
+            "content": "<p>My first attempt at pecan pie? Total disaster. I forgot to add the eggs and ended up with a gooey mess. Now I know that the eggs are crucial for that perfect texture. Trust me, don’t skip that step!<\/p>"
         },
         {
-            "content": "<p>To create your under the sea crafts, you'll need:<\/p><ul><li><strong>Primary materials:<\/strong> Paper plates are affordable and easy to find at any grocery or craft store. They serve as a sturdy base for your ocean creatures.<\/li><li><strong>Optional enhancements:<\/strong> Adding glitter or stickers can make your crafts more colorful and exciting, enhancing the visual appeal.<\/li><li><strong>Budget-friendly alternatives:<\/strong> Recycled materials like cardboard or old magazines can be used instead of paper plates for a more eco-friendly approach.<\/li><li><strong>Preparation tools:<\/strong> You will need scissors for cutting shapes and a glue stick for assembling your crafts. Ensure scissors are child-safe for younger kids.<\/li><\/ul>"
+            "headline": "Essential Ingredients & Smart Substitutions"
+        },
+        {
+            "content": "<p><strong>Main ingredient (pecans):<\/strong> Fresh pecans are key here. Look for ones that are plump and fragrant. They add a wonderful crunch and nutty flavor that makes this pie special. I recommend toasting them lightly before adding to enhance their flavor. <strong>Key seasonings\/aromatics:<\/strong> Vanilla extract brings warmth and depth to the filling. Use a good quality brand for the best results. <strong>Supporting ingredients:<\/strong> The corn syrup and brown sugar create that gooey texture. I like to use light corn syrup for a milder flavor. <strong>Smart substitutions:<\/strong> If you’re out of corn syrup, you can use maple syrup or honey, but the flavor will change slightly. <strong>Equipment needed:<\/strong> A good pie dish is essential. I use my trusty ceramic one for even baking.<\/p>"
         },
         {
             "upload": {
-                "context": "Flat lay photo of colorful paper plates, paints, scissors, and googly eyes neatly arranged on a white table, ready for crafting.",
-                "url": "creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_1.webp",
-                "fileName": "creative-under-the-sea-crafts-for-kids-ages-3-5_image_1.webp",
-                "type": "main"
+                "context": "Fresh pecans, corn syrup, brown sugar, and eggs arranged on a wooden countertop for pecan pie preparation",
+                "url": "best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_1.webp"
             }
         },
         {
-            "headline": "Step-by-Step Activity Instructions"
+            "headline": "Step-by-Step Cooking Instructions"
         },
         {
-            "content": "<p>To set up for your under the sea crafts, gather all materials and create a clean workspace. Ensure kids can reach everything they need. Prepare the paper plates by laying them out and providing paints in small containers for easy access.<\/p><dl><dt><strong>Setup phase:<\/strong><\/dt><dd>Gather all materials and set up a crafting station. Allow kids to help organize supplies to encourage ownership of the project.<\/dd><dt><strong>Activity execution:<\/strong><\/dt><dd>Guide kids through painting and assembling their ocean creatures, providing assistance as needed. Encourage them to express their creativity and share ideas.<\/dd><dt><strong>Completion and extension:<\/strong><\/dt><dd>Once finished, display the crafts or use them in imaginative play. Celebrate their creations and discuss what they learned about marine life.<\/dd><\/dl>"
+            "content": "<p>Before diving into baking, make sure to gather all your ingredients. Preheat your oven to 350°F (175°C) while you roll out the pie crust. This way, everything is ready to go. I usually chop the pecans while the oven heats up. For the filling, whisk together the corn syrup, sugar, and melted butter until smooth. Then add the eggs, one by one, mixing thoroughly. Pour this mixture into the crust and bake until the filling is set. You’ll know it’s done when it’s golden and slightly jiggly in the center.<\/p>"
         },
         {
             "upload": {
-                "context": "Action shot of a child painting a colorful paper plate while smiling, surrounded by various craft materials.",
-                "url": "creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_2.webp",
-                "fileName": "creative-under-the-sea-crafts-for-kids-ages-3-5_image_2.webp",
-                "type": "main"
-            }
-        },
-        {
-            "note": {
-                "label": "Critical Tips for Success",
-                "content": "<ul><li><strong>Age adaptation strategy:<\/strong> Simplify the project for younger kids by pre-cutting shapes or using larger materials for easier handling.<\/li><li><strong>Common frustration to prevent:<\/strong> Kids may struggle with waiting for paint to dry; have multiple projects ready to keep them engaged.<\/li><li><strong>Engagement keeper:<\/strong> Introduce a storytelling element where kids can create a story around their ocean creatures to maintain interest.<\/li><li><strong>Storage & reusability:<\/strong> Store leftover materials in a labeled bin for future use, ensuring they are organized and accessible.<\/li><\/ul>"
-            }
-        },
-        {
-            "content": "<p>Witnessing children engage with this under the sea craft activity is truly heartwarming. Their excitement as they paint and create is contagious, and the pride they feel in their finished products is evident. Kids often share their stories about the creatures they've made, showcasing their creativity and understanding of marine life. These moments remind us of the joy and satisfaction that comes from supporting children's learning and development through fun, hands-on activities.<\/p>"
-        },
-        {
-            "headline": "Learning Extensions & Skill Builders"
-        },
-        {
-            "content": "<p>To extend learning from this activity, consider these follow-up ideas:<\/p><ul><li>Explore ocean-themed books to deepen understanding of marine life and ecosystems.<\/li><li>Incorporate math by counting the legs of different sea creatures or measuring materials used in crafts.<\/li><li>Integrate science by discussing ocean habitats and the importance of conservation.<\/li><li>Use technology by exploring educational apps about marine biology or watching documentaries about ocean life.<\/li><\/ul><p>These extensions will enhance the educational value of the crafts and encourage further exploration of the underwater world.<\/p>"
-        },
-        {
-            "headline": "Creating the Perfect Learning Environment"
-        },
-        {
-            "content": "<p>To set up a successful crafting environment, consider the following:<\/p><ul><li><strong>Physical setup:<\/strong> Arrange a spacious table with good lighting to minimize distractions and promote focus.<\/li><li><strong>Time of day considerations:<\/strong> Choose a time when kids are typically energetic and engaged, such as after a snack or during a creative playtime.<\/li><li><strong>Group vs independent:<\/strong> This activity works well in small groups or pairs, fostering collaboration and sharing of ideas.<\/li><li><strong>Motivation strategies:<\/strong> Introduce the activity with excitement, perhaps by sharing fun facts about marine life to spark interest.<\/li><li><strong>Sensory considerations:<\/strong> Adapt materials for children with sensory sensitivities by providing textured items or allowing them to choose their own materials.<\/li><li><strong>Clean-up tips:<\/strong> Encourage kids to help with clean-up by making it a fun part of the activity, teaching responsibility and teamwork.<\/li><\/ul>"
-        },
-        {
-            "headline": "Adaptations for Different Learners"
-        },
-        {
-            "content": "<p>To ensure all learners can engage with this activity, consider these adaptations:<\/p><ul><li><strong>For younger\/struggling learners:<\/strong> Use larger materials or pre-cut shapes to simplify the crafting process.<\/li><li><strong>For advanced\/older students:<\/strong> Challenge them to create more complex designs or research specific marine animals to incorporate into their crafts.<\/li><li><strong>For special needs:<\/strong> Provide adaptive tools like scissors with larger grips or textured materials for sensory engagement.<\/li><li><strong>For different learning styles:<\/strong> Incorporate auditory elements by playing ocean sounds or discussing marine life to engage auditory learners.<\/li><\/ul><p>These adaptations will help maintain learning objectives while ensuring inclusivity.<\/p>"
-        },
-        {
-            "upload": {
-                "context": "Completed ocean creature crafts displayed proudly by a child, showcasing creativity and artistic expression.",
-                "url": "creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_3.webp",
-                "fileName": "creative-under-the-sea-crafts-for-kids-ages-3-5_image_3.webp",
-                "type": "main"
+                "context": "Pouring the pecan filling into the pie crust on a wooden countertop with a spatula",
+                "url": "best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_2.webp"
             }
         },
         {
             "note": {
-                "label": "Expert Teaching Strategies",
-                "content": "<ul><li><strong>Professional educator technique:<\/strong> Use a scaffolding approach by breaking down the crafting process into manageable steps to maximize learning.<\/li><li><strong>Differentiation secret:<\/strong> Provide various materials and options for creativity to engage all skill levels simultaneously.<\/li><li><strong>Assessment opportunity:<\/strong> Observe children's engagement and creativity during the activity to assess their understanding of marine life.<\/li><li><strong>Parent communication:<\/strong> Share the educational benefits of this activity with parents, highlighting how it supports fine motor skills and creativity.<\/li><\/ul>"
+                "label": "Critical Tips You Must Know",
+                "content": "<ul><li><strong>Temperature precision:<\/strong> Bake at 350°F for even cooking. If your oven runs hot, check the pie a bit earlier.<\/li><li><strong>Common mistake to avoid:<\/strong> Overbaking can lead to a dry filling. Keep an eye on it during the last few minutes.<\/li><li><strong>Perfect doneness indicator:<\/strong> The pie should be set but still have a slight jiggle in the center when you take it out.<\/li><li><strong>Storage & reheating:<\/strong> Store in the fridge for up to 4 days. Reheat in the oven at 300°F for about 10 minutes.<\/li><\/ul>"
             }
         },
         {
-            "content": "<p>In conclusion, these under the sea crafts offer a delightful blend of creativity and learning for young children. They develop fine motor skills while sparking imagination and curiosity about marine life. Encourage your little ones to share their creations and experiences, fostering a love for learning that lasts. We invite you to try these crafts with your kids and share your results using our hashtag. Dive into creativity with these engaging under the sea crafts today!<\/p>"
+            "content": "<p>Sharing this pecan pie with family is always a joy. The way their faces light up when they take that first bite is priceless. I love serving it warm with a scoop of vanilla ice cream on the side. It’s a simple pleasure that brings everyone together, and I can’t wait to hear how yours turns out!<\/p>"
+        },
+        {
+            "headline": "Flavor Boosters & Customization Ideas"
+        },
+        {
+            "content": "<p><ul><li><strong>Herbs:<\/strong> Add a pinch of rosemary for an unexpected twist. It pairs surprisingly well with the sweetness.<\/li><li><strong>Spices:<\/strong> A dash of cinnamon or nutmeg can enhance the warmth of the pie. Just a sprinkle will do!<\/li><li><strong>Upgrades:<\/strong> Try adding chocolate chips for a richer flavor experience. They melt beautifully into the filling.<\/li><li><strong>Technique variations:<\/strong> For a deeper flavor, consider caramelizing the pecans before adding them to the filling.<\/li><\/ul><\/p>"
+        },
+        {
+            "headline": "Perfect Pairings & Serving Suggestions"
+        },
+        {
+            "content": "<p><ul><li><strong>Side dishes:<\/strong> Serve with a fresh fruit salad for a refreshing contrast.<\/li><li><strong>Beverage pairings:<\/strong> A cup of coffee or a sweet tea complements the pie nicely.<\/li><li><strong>Bread\/starch options:<\/strong> Crusty bread can be a nice addition if you want something savory on the side.<\/li><li><strong>Occasion ideas:<\/strong> This pie shines at Thanksgiving, Christmas, or any family gathering.<\/li><li><strong>Presentation tips:<\/strong> Garnish with whipped cream and a sprinkle of pecans on top for a beautiful finish.<\/li><li><strong>Temperature serving note:<\/strong> Serve warm for the best texture and flavor.<\/li><\/ul><\/p>"
+        },
+        {
+            "headline": "Creative Variations to Try"
+        },
+        {
+            "content": "<p><ul><li><strong>Dietary adaptation 1 (Gluten-Free):<\/strong> Use a gluten-free pie crust for a delicious alternative.<\/li><li><strong>Dietary adaptation 2 (Vegan):<\/strong> Substitute eggs with flaxseed meal mixed with water and use maple syrup instead of corn syrup.<\/li><li><strong>Flavor variation (Spicy):<\/strong> Add cayenne pepper for a spicy kick that contrasts with the sweetness.<\/li><li><strong>Protein\/ingredient swap:<\/strong> Use walnuts instead of pecans for a different nutty flavor.<\/li><\/ul><\/p>"
+        },
+        {
+            "upload": {
+                "context": "Final plated pecan pie garnished with whipped cream and pecans on a rustic wooden table",
+                "url": "best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_3.webp"
+            }
+        },
+        {
+            "note": {
+                "label": "Pro Chef Secrets",
+                "content": "<ul><li><strong>Restaurant technique:<\/strong> For a smoother filling, blend the mixture in a food processor before pouring it into the crust.<\/li><li><strong>Ingredient prep secret:<\/strong> Toasting the pecans enhances their flavor significantly. Just a few minutes in the oven will do!<\/li><li><strong>Timing strategy:<\/strong> If you're making this for a gathering, bake it the day before. It tastes even better after sitting overnight.<\/li><li><strong>Presentation hack:<\/strong> Use a serrated knife to slice the pie cleanly without squishing the filling.<\/li><\/ul>"
+            }
+        },
+        {
+            "content": "<p>In the end, this pecan pie is a recipe that’s worth every minute spent in the kitchen. It’s a dish that brings warmth and joy to any table. I encourage you to give it a try and share your experience in the comments. Don’t forget to save this classic Southern pecan pie recipe for your next gathering!<\/p>"
         }
     ],
+    "author_id": "author_001",
     "images": [
         {
-            "fileName": "creative-under-the-sea-crafts-for-kids-ages-3-5_image_1.webp",
-            "filePath": "Posts\/creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_1.webp",
-            "relativePath": "creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_1.webp",
-            "originalUrl": "http:\/\/localhost\/SitePinterset\/mathgames4kids\/tmpIMG\/image_1.webp",
+            "fileName": "best-classic-southern-pecan-pie-for-holiday-gatherings_image_1.webp",
+            "filePath": "recipes\/best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_1.webp",
+            "relativePath": "best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_1.webp",
+            "originalUrl": "http:\/\/localhost\/SitePinterset\/mollykitchendaily-main\/tmpIMG\/image_1.webp",
             "order": 1
         },
         {
-            "fileName": "creative-under-the-sea-crafts-for-kids-ages-3-5_image_2.webp",
-            "filePath": "Posts\/creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_2.webp",
-            "relativePath": "creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_2.webp",
-            "originalUrl": "http:\/\/localhost\/SitePinterset\/mathgames4kids\/tmpIMG\/image_2.webp",
+            "fileName": "best-classic-southern-pecan-pie-for-holiday-gatherings_image_2.webp",
+            "filePath": "recipes\/best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_2.webp",
+            "relativePath": "best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_2.webp",
+            "originalUrl": "http:\/\/localhost\/SitePinterset\/mollykitchendaily-main\/tmpIMG\/image_2.webp",
             "order": 2
         },
         {
-            "fileName": "creative-under-the-sea-crafts-for-kids-ages-3-5_image_3.webp",
-            "filePath": "Posts\/creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_3.webp",
-            "relativePath": "creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_3.webp",
-            "originalUrl": "http:\/\/localhost\/SitePinterset\/mathgames4kids\/tmpIMG\/image_3.webp",
+            "fileName": "best-classic-southern-pecan-pie-for-holiday-gatherings_image_3.webp",
+            "filePath": "recipes\/best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_3.webp",
+            "relativePath": "best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_3.webp",
+            "originalUrl": "http:\/\/localhost\/SitePinterset\/mollykitchendaily-main\/tmpIMG\/image_3.webp",
             "order": 3
         },
         {
-            "fileName": "creative-under-the-sea-crafts-for-kids-ages-3-5_mollykitchendaily-main_image_4.webp",
-            "filePath": "Posts\/creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_mollykitchendaily-main_image_4.webp",
-            "relativePath": "creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_mollykitchendaily-main_image_4.webp",
-            "originalUrl": "http:\/\/localhost\/SitePinterset\/mathgames4kids\/Posts\/creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_mollykitchendaily-main_image_4.webp",
+            "fileName": "best-classic-southern-pecan-pie-for-holiday-gatherings_mollykitchendaily-main_image_4.webp",
+            "filePath": "recipes\/best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_mollykitchendaily-main_image_4.webp",
+            "relativePath": "best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_mollykitchendaily-main_image_4.webp",
+            "originalUrl": "http:\/\/localhost\/SitePinterset\/mollykitchendaily-main\/recipes\/best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_mollykitchendaily-main_image_4.webp",
             "order": 4,
             "type": "template"
         }
     ],
-    "image": "creative-under-the-sea-crafts-for-kids-ages-3-5_image_1.webp",
-    "image_path": "Posts\/creative-under-the-sea-crafts-for-kids-ages-3-5\/images\/creative-under-the-sea-crafts-for-kids-ages-3-5_image_1.webp",
-    "image_dir": "creative-under-the-sea-crafts-for-kids-ages-3-5\/images",
+    "slug": "best-classic-southern-pecan-pie-for-holiday-gatherings",
+    "id": "recipe_1765300025_593",
+    "image": "best-classic-southern-pecan-pie-for-holiday-gatherings_image_1.webp",
+    "image_path": "recipes\/best-classic-southern-pecan-pie-for-holiday-gatherings\/images\/best-classic-southern-pecan-pie-for-holiday-gatherings_image_1.webp",
+    "image_dir": "best-classic-southern-pecan-pie-for-holiday-gatherings\/images",
     "generated_from_text": true,
     "has_rich_structure": true,
-    "createdAt": "2025-12-19T18:24:22+01:00",
-    "updatedAt": "2025-12-19T18:24:22+01:00"
+    "createdAt": "2025-12-13T22:03:46+01:00",
+    "updatedAt": "2025-12-13T22:03:46+01:00"
 }
