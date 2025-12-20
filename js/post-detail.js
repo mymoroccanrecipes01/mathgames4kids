@@ -536,16 +536,17 @@ class PostDetailLoader {
         return null;
     }
 
-    async loadPostData(postSlug) {
+async loadPostData(postSlug) {
         try {
             const jsonUrl = `${this.postsPath}${postSlug}/Post.json`;
-              console.log('📡 Fetching post from:', jsonUrl);
+            console.log('📡 Fetching post from:', jsonUrl);
             
             const response = await fetch(jsonUrl);
             console.log('📡 Response status:', response.status, response.statusText);
+            console.log('📡 Response content-type:', response.headers.get('content-type'));
             
             if (!response.ok) {
-                // console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
+                console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
                 
                 // Essayer des variations du nom de fichier
                 const alternatives = [
@@ -555,26 +556,52 @@ class PostDetailLoader {
                 ];
                 
                 for (const altUrl of alternatives) {
-                   // // console.log('🔄 Trying alternative:', altUrl);
+                    console.log('🔄 Trying alternative:', altUrl);
                     try {
                         const altResponse = await fetch(altUrl);
-                        if (altResponse.ok) {
-                           // // console.log('✅ Found alternative post file:', altUrl);
-                            const altData = await altResponse.json();
-                            altData.folderName = postSlug;
-                            altData.mainImage = this.getMainImage(altData, postSlug);
-                            return altData;
+                        
+                        // Vérifier que c'est bien du JSON
+                        const contentType = altResponse.headers.get('content-type');
+                        if (!altResponse.ok || !contentType || !contentType.includes('application/json')) {
+                            console.log('❌ Alternative not JSON or not found:', altUrl);
+                            continue;
                         }
+                        
+                        const altData = await altResponse.json();
+                        console.log('✅ Found alternative post file:', altUrl);
+                        altData.folderName = postSlug;
+                        altData.mainImage = this.getMainImage(altData, postSlug);
+                        return altData;
                     } catch (altError) {
-                       // // console.log('❌ Alternative failed:', altUrl, altError.message);
+                        console.log('❌ Alternative failed:', altUrl, altError.message);
                     }
                 }
                 
-                return null;
+                console.error('❌ No valid post file found for:', postSlug);
+                return this.createFallbackPost(postSlug);
             }
-            console.log('📡 post file fetched successfully'+response.json());
+            
+            // ✅ CORRECTION: Vérifier le Content-Type avant de parser
+            const contentType = response.headers.get('content-type');
+            console.log('📄 Content-Type:', contentType);
+            
+            if (!contentType || !contentType.includes('application/json')) {
+                console.error('❌ Response is not JSON, got:', contentType);
+                const textContent = await response.text();
+                console.error('Response preview:', textContent.substring(0, 200));
+                
+                // Si c'est du HTML, c'est probablement une page 404
+                if (textContent.includes('<html') || textContent.includes('<!DOCTYPE')) {
+                    console.error('❌ Server returned HTML instead of JSON - file probably doesn\'t exist');
+                    return this.createFallbackPost(postSlug);
+                }
+                
+                return this.createFallbackPost(postSlug);
+            }
+            
+            // ✅ Parser le JSON uniquement si le Content-Type est correct
             const postData = await response.json();
-             console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
+            console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
             
             // Validation des données essentielles
             if (!postData.title) {
@@ -598,7 +625,6 @@ class PostDetailLoader {
             }
 
             postData.folderName = postSlug;
-            console.log('📋 Post data loaded:');
             postData.mainImage = this.getMainImage(postData, postSlug);
             
             console.log('🎯 Post processed:', {
@@ -611,13 +637,18 @@ class PostDetailLoader {
             return postData;
             
         } catch (error) {
-           // console.error(`💥 Error loading post ${postSlug}:`, error);
+            console.error(`💥 Error loading post ${postSlug}:`, error);
+            console.error('Error details:', {
+                name: error.name,
+                message: error.message,
+                stack: error.stack?.substring(0, 200)
+            });
             
-            // Retourner une recette de fallback si possible
+            // Retourner une recette de fallback
             if (error.name === 'SyntaxError') {
-               // console.error('❌ JSON parsing failed - invalid JSON format');
+                console.error('❌ JSON parsing failed - server returned invalid JSON or HTML');
             } else if (error.name === 'TypeError') {
-               // console.error('❌ Network error - check file paths and server');
+                console.error('❌ Network error - check file paths and server configuration');
             }
 
             return this.createFallbackPost(postSlug);
