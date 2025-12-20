@@ -537,6 +537,7 @@ class PostDetailLoader {
     }
 
 // ✅ MÉTHODE COMPLÈTE À REMPLACER DANS PostDetailLoader
+// ✅ CORRECTION FINALE - Gestion des réponses vides
     async loadPostData(postSlug) {
         try {
             console.log('📡 Chargement du post:', postSlug);
@@ -547,19 +548,18 @@ class PostDetailLoader {
                 return this.postsCache.get(postSlug);
             }
 
-            // Initialiser le cache si nécessaire
             if (!this.postsCache) {
                 this.postsCache = new Map();
             }
 
-            // ✅ STRATÉGIE 1: Essayer fetch direct avec validation stricte
+            // ✅ STRATÉGIE 1: Fetch direct
             const directResult = await this.tryDirectFetch(postSlug);
             if (directResult) {
                 this.postsCache.set(postSlug, directResult);
                 return directResult;
             }
 
-            // ✅ STRATÉGIE 2: Charger via index.json
+            // ✅ STRATÉGIE 2: Via index.json
             console.log('⚠️ Fetch direct échoué, essai via index.json...');
             const indexResult = await this.loadViaIndex(postSlug);
             if (indexResult) {
@@ -567,7 +567,7 @@ class PostDetailLoader {
                 return indexResult;
             }
 
-            // ✅ STRATÉGIE 3: Chercher dans le DOM (données embarquées)
+            // ✅ STRATÉGIE 3: DOM
             console.log('⚠️ Index échoué, recherche dans le DOM...');
             const domResult = await this.loadFromDOM(postSlug);
             if (domResult) {
@@ -575,7 +575,7 @@ class PostDetailLoader {
                 return domResult;
             }
 
-            // Fallback final
+            // Fallback
             console.log('⚠️ Toutes les stratégies ont échoué, utilisation du fallback');
             return this.createFallbackPost(postSlug);
             
@@ -583,6 +583,319 @@ class PostDetailLoader {
             console.error('💥 Erreur loadPostData:', error);
             return this.createFallbackPost(postSlug);
         }
+    }
+
+    // ✅ CORRECTION: Gestion des réponses vides
+    async tryDirectFetch(postSlug) {
+        const urls = [
+            `${this.postsPath}${postSlug}/Post.json`,
+            `${this.postsPath}${postSlug}/post.json`,
+            `${this.postsPath}${postSlug}/data.json`
+        ];
+
+        for (const url of urls) {
+            try {
+                const response = await fetch(url, {
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    console.log('❌', url, '→ HTTP', response.status);
+                    continue;
+                }
+
+                const text = await response.text();
+
+                // ✅ VÉRIFIER QUE LA RÉPONSE N'EST PAS VIDE
+                if (!text || text.trim().length === 0) {
+                    console.log('❌', url, '→ Réponse vide');
+                    continue;
+                }
+
+                // ✅ VÉRIFIER SI C'EST DU HTML
+                if (this.isHTML(text)) {
+                    console.log('❌', url, '→ HTML détecté');
+                    continue;
+                }
+
+                // ✅ VÉRIFIER SI C'EST UN JSON VALIDE
+                if (!this.isValidJSON(text)) {
+                    console.log('❌', url, '→ JSON invalide');
+                    continue;
+                }
+
+                // ✅ PARSER LE JSON
+                const data = JSON.parse(text);
+                
+                if (!data || typeof data !== 'object' || Object.keys(data).length === 0) {
+                    console.log('❌', url, '→ JSON vide ou invalide');
+                    continue;
+                }
+
+                console.log('✅ JSON valide chargé depuis:', url);
+                return this.validatePostData(data, postSlug);
+
+            } catch (error) {
+                console.log('❌', url, '→', error.message);
+                continue;
+            }
+        }
+
+        return null;
+    }
+
+    // ✅ NOUVEAU: Vérifier si c'est du JSON valide avant de parser
+    isValidJSON(text) {
+        if (!text || text.trim().length === 0) {
+            return false;
+        }
+
+        // Vérifier les caractères de début typiques du JSON
+        const trimmed = text.trim();
+        if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) {
+            return false;
+        }
+
+        // Essayer de parser
+        try {
+            JSON.parse(text);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // ✅ Vérifier si c'est du HTML
+    isHTML(text) {
+        if (!text) return false;
+        
+        const htmlIndicators = [
+            '<script',
+            '<!doctype',
+            '<html',
+            'window.location',
+            '</html>',
+            '<head>',
+            '<body>'
+        ];
+        
+        const lower = text.toLowerCase();
+        return htmlIndicators.some(indicator => lower.includes(indicator));
+    }
+
+    // ✅ CORRECTION: Gestion des réponses vides dans loadViaIndex
+    async loadViaIndex(postSlug) {
+        try {
+            const response = await fetch(`${this.postsPath}index.json`, {
+                headers: { 'Accept': 'application/json' }
+            });
+            
+            if (!response.ok) {
+                console.log('❌ index.json HTTP', response.status);
+                return null;
+            }
+
+            const text = await response.text();
+            
+            // ✅ VÉRIFIER QUE LA RÉPONSE N'EST PAS VIDE
+            if (!text || text.trim().length === 0) {
+                console.log('❌ index.json vide');
+                return null;
+            }
+
+            // ✅ VÉRIFIER SI C'EST DU HTML
+            if (this.isHTML(text)) {
+                console.log('❌ index.json retourne du HTML');
+                return null;
+            }
+
+            // ✅ VÉRIFIER SI C'EST DU JSON VALIDE
+            if (!this.isValidJSON(text)) {
+                console.log('❌ index.json n\'est pas du JSON valide');
+                return null;
+            }
+
+            const indexData = JSON.parse(text);
+            const folders = indexData.folders || indexData;
+
+            if (!Array.isArray(folders) || folders.length === 0) {
+                console.log('❌ index.json ne contient pas de posts');
+                return null;
+            }
+
+            // Chercher le slug
+            const found = folders.find(f => 
+                f === postSlug || 
+                f.toLowerCase() === postSlug.toLowerCase() ||
+                postSlug.includes(f) ||
+                f.includes(postSlug)
+            );
+
+            if (!found) {
+                console.log('❌ Slug non trouvé dans index.json');
+                console.log('Posts disponibles:', folders.slice(0, 5));
+                return null;
+            }
+
+            console.log('✅ Slug trouvé:', found);
+            return await this.tryDirectFetch(found);
+
+        } catch (error) {
+            console.error('❌ Erreur loadViaIndex:', error.message);
+            return null;
+        }
+    }
+
+    // ✅ Chercher dans le DOM
+    async loadFromDOM(postSlug) {
+        try {
+            // Chercher data-post-slug
+            const dataElement = document.querySelector(`[data-post-slug="${postSlug}"]`);
+            
+            if (dataElement && dataElement.dataset.postJson) {
+                try {
+                    const data = JSON.parse(dataElement.dataset.postJson);
+                    console.log('✅ Post depuis data-post-json');
+                    return this.validatePostData(data, postSlug);
+                } catch (e) {
+                    console.log('❌ Erreur parsing data-post-json:', e.message);
+                }
+            }
+
+            // Chercher JSON-LD
+            const jsonLdScripts = document.querySelectorAll('script[type="application/ld+json"]');
+            
+            for (const script of jsonLdScripts) {
+                try {
+                    const text = script.textContent.trim();
+                    
+                    if (!text || text.length === 0) continue;
+                    
+                    const data = JSON.parse(text);
+                    
+                    if (data['@type'] === 'Recipe' || data['@type'] === 'Article') {
+                        console.log('✅ Post depuis JSON-LD');
+                        return this.convertStructuredData(data, postSlug);
+                    }
+                } catch (e) {
+                    continue;
+                }
+            }
+
+            return null;
+
+        } catch (error) {
+            console.error('❌ Erreur loadFromDOM:', error);
+            return null;
+        }
+    }
+
+    // ✅ Convertir données structurées
+    convertStructuredData(data, postSlug) {
+        return {
+            title: data.name || data.headline || postSlug,
+            description: data.description || '',
+            ingredients: data.recipeIngredient || data.ingredients || [],
+            instructions: (data.recipeInstructions || data.instructions || [])
+                .map(i => i.text || i.name || i),
+            prep_time: this.parseDuration(data.prepTime),
+            cook_time: this.parseDuration(data.cookTime),
+            total_time: this.parseDuration(data.totalTime),
+            servings: data.recipeYield || data.yield || '',
+            mainImage: data.image?.url || data.image || '',
+            folderName: postSlug,
+            category: data.recipeCategory || data.category || '',
+            difficulty: 'medium'
+        };
+    }
+
+    parseDuration(iso) {
+        if (!iso) return 0;
+        const match = iso.match(/PT(\d+)M/);
+        return match ? parseInt(match[1]) : 0;
+    }
+
+    // ✅ Valider les données
+    validatePostData(data, postSlug) {
+        const post = { ...data };
+
+        post.folderName = postSlug;
+        
+        if (!post.title) {
+            post.title = postSlug
+                .replace(/-/g, ' ')
+                .replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        if (!post.description) {
+            post.description = `Delicious ${post.title}`;
+        }
+
+        if (!Array.isArray(post.ingredients)) {
+            post.ingredients = ['Ingredients not available'];
+        }
+
+        if (!Array.isArray(post.instructions)) {
+            post.instructions = ['Instructions not available'];
+        }
+
+        post.mainImage = post.mainImage || this.getMainImage(post, postSlug);
+        post.prep_time = post.prep_time || 0;
+        post.cook_time = post.cook_time || 0;
+        post.total_time = post.total_time || post.prep_time + post.cook_time;
+        post.servings = post.servings || 'Not specified';
+        post.difficulty = post.difficulty || 'medium';
+
+        return post;
+    }
+
+    getMainImage(postData, folderName) {
+        if (postData.image_path) {
+            return `./${postData.image_path}`;
+        }
+        
+        if (postData.images && Array.isArray(postData.images) && postData.images.length > 0) {
+            const mainImg = postData.images.find(img => img.type === 'main');
+            if (mainImg?.filePath) return `./${mainImg.filePath}`;
+            if (postData.images[0].filePath) return `./${postData.images[0].filePath}`;
+        }
+        
+        if (postData.image) {
+            return `./posts/${folderName}/images/${postData.image}`;
+        }
+        
+        return `./posts/${folderName}/images/${folderName}_image_1.webp`;
+    }
+
+    createFallbackPost(postSlug) {
+        const title = postSlug
+            .replace(/-/g, ' ')
+            .replace(/\b\w/g, l => l.toUpperCase());
+        
+        return {
+            title: title,
+            description: `This content is temporarily unavailable. The files may not be properly deployed on the server.`,
+            folderName: postSlug,
+            mainImage: `./posts/${postSlug}/images/${postSlug}_image_1.webp`,
+            ingredients: [
+                '⚠️ Content temporarily unavailable',
+                '🔧 This may be due to server configuration',
+                '💡 Solution: Check _redirects and _headers files in Cloudflare Pages'
+            ],
+            instructions: [
+                'The content files could not be loaded from the server.',
+                'This is likely a deployment or server configuration issue.',
+                'Please contact the site administrator or try again later.'
+            ],
+            prep_time: 0,
+            cook_time: 0,
+            total_time: 0,
+            servings: 'Not specified',
+            difficulty: 'medium',
+            category: 'Unavailable',
+            structured_content: [],
+            isOnline: false
+        };
     }
 
     // ✅ Essayer le fetch direct avec validation
@@ -784,51 +1097,7 @@ class PostDetailLoader {
         return post;
     }
 
-    getMainImage(postData, folderName) {
-        if (postData.image_path) {
-            return `./${postData.image_path}`;
-        }
-        
-        if (postData.images && Array.isArray(postData.images) && postData.images.length > 0) {
-            const mainImg = postData.images.find(img => img.type === 'main');
-            if (mainImg?.filePath) {
-                return `./${mainImg.filePath}`;
-            }
-            if (postData.images[0].filePath) {
-                return `./${postData.images[0].filePath}`;
-            }
-        }
-        
-        if (postData.image) {
-            return `./posts/${folderName}/images/${postData.image}`;
-        }
-        
-        // Essayer le nom standard
-        return `./posts/${folderName}/images/${folderName}_image_1.webp`;
-    }
 
-    createFallbackPost(postSlug) {
-        const title = postSlug
-            .replace(/-/g, ' ')
-            .replace(/\b\w/g, l => l.toUpperCase());
-        
-        return {
-            title: title,
-            description: `This post is temporarily unavailable.`,
-            folderName: postSlug,
-            mainImage: `./posts/${postSlug}/images/${postSlug}_image_1.webp`,
-            ingredients: ['Post data is temporarily unavailable'],
-            instructions: ['Please try refreshing the page or contact support'],
-            prep_time: 0,
-            cook_time: 0,
-            total_time: 0,
-            servings: 'Not specified',
-            difficulty: 'medium',
-            category: 'Unavailable',
-            structured_content: [],
-            isOnline: false
-        };
-    }
 
 
 
