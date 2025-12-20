@@ -539,7 +539,7 @@ class PostDetailLoader {
     async loadPostData(postSlug) {
         try {
             const jsonUrl = `${this.postsPath}${postSlug}/Post.json`;
-              console.log('📡 Fetching recipe from:', jsonUrl);
+              console.log('📡 Fetching post from:', jsonUrl);
             
             const response = await fetch(jsonUrl);
             console.log('📡 Response status:', response.status, response.statusText);
@@ -559,7 +559,7 @@ class PostDetailLoader {
                     try {
                         const altResponse = await fetch(altUrl);
                         if (altResponse.ok) {
-                           // // console.log('✅ Found alternative recipe file:', altUrl);
+                           // // console.log('✅ Found alternative post file:', altUrl);
                             const altData = await altResponse.json();
                             altData.folderName = postSlug;
                             altData.mainImage = this.getMainImage(altData, postSlug);
@@ -572,7 +572,7 @@ class PostDetailLoader {
                 
                 return null;
             }
-
+            console.log('📡 post file fetched successfully');
             const postData = await response.json();
              console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
             
@@ -589,7 +589,7 @@ class PostDetailLoader {
             
             if (!postData.ingredients || !Array.isArray(postData.ingredients)) {
                 console.warn('⚠️ Post missing ingredients, adding defaults');
-                recipeData.ingredients = ['Ingredients list not available'];
+                postData.ingredients = ['Ingredients list not available'];
             }
 
             if (!postData.instructions || !Array.isArray(postData.instructions)) {
@@ -601,7 +601,7 @@ class PostDetailLoader {
             console.log('📋 Post data loaded:');
             postData.mainImage = this.getMainImage(postData, postSlug);
             
-            console.log('🎯 Recipe processed:', {
+            console.log('🎯 Post processed:', {
                 title: postData.title,
                 ingredients: postData.ingredients?.length || 0,
                 instructions: postData.instructions?.length || 0,
@@ -611,7 +611,7 @@ class PostDetailLoader {
             return postData;
             
         } catch (error) {
-           // console.error(`💥 Error loading recipe ${recipeSlug}:`, error);
+           // console.error(`💥 Error loading post ${postSlug}:`, error);
             
             // Retourner une recette de fallback si possible
             if (error.name === 'SyntaxError') {
