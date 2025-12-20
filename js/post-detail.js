@@ -530,7 +530,7 @@ class PostDetailLoader {
     // Charger les données d'une recette optimisées pour RSS
     async loadPostDataForRSS(folderName) {
         try {
-            const jsonUrl = `${this.postPath}${folderName}/post.json`;
+            const jsonUrl = `${this.postPath}${folderName}/Post.json`;
             const jsonResponse = await fetch(jsonUrl);
             
             if (!jsonResponse.ok) {
@@ -1183,7 +1183,7 @@ class PostDetailLoader {
 
         for (const folderName of commonPostNames) {
             try {
-                const response = await fetch(`${this.postPath}${folderName}/post.json`, {
+                const response = await fetch(`${this.postPath}${folderName}/Post.json`, {
                     method: 'HEAD'
                 });
                 if (response.ok) {
@@ -1200,7 +1200,7 @@ class PostDetailLoader {
     // Charger les données d'une recette pour la sidebar
 async loadPostDataForSidebar(folderName) {
     try {
-        const jsonUrl = `${this.postPath}${folderName}/post.json`;
+        const jsonUrl = `${this.postPath}${folderName}/Post.json`;
         const jsonResponse = await fetch(jsonUrl);
         
         if (!jsonResponse.ok) {
@@ -1446,7 +1446,7 @@ console.log(this.recentPosts);
 
 async loadPostData(postSlug) {
     try {
-        const jsonUrl = `${this.postPath}${postSlug}/post.json`;
+        const jsonUrl = `${this.postPath}${postSlug}/Post.json`;
         
         const response = await fetch(jsonUrl);
         
