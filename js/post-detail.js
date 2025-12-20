@@ -572,7 +572,7 @@ class PostDetailLoader {
                 
                 return null;
             }
-            console.log('📡 post file fetched successfully');
+            console.log('📡 post file fetched successfully'+response.json());
             const postData = await response.json();
              console.log('✅ Post data parsed successfully:', postData.title || 'Untitled');
             
