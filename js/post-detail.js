@@ -1198,38 +1198,52 @@ class PostDetailLoader {
     }
 
     // Charger les données d'une recette pour la sidebar
-    async loadPostDataForSidebar(folderName) {
-        try {
-            const jsonUrl = `${this.postPath}${folderName}/Post.json`;
-            const jsonResponse = await fetch(jsonUrl);
-            
-            if (!jsonResponse.ok) {
-                return null;
-            }
-            
-            const PostData = await jsonResponse.json();
-            
-            if (!PostData.title) {
-                return null;
-            }
-            
-            return {
-                slug: PostData.slug || folderName,
-                folderName,
-                title: PostData.title,
-                description: PostData.description || 'Description non disponible',
-                mainImage: this.getMainImage(PostData, folderName),
-                createdAt: PostData.createdAt,
-                updatedAt: PostData.updatedAt,
-                isOnline: PostData.isOnline,
-                ...PostData
-            };
-            
-        } catch (error) {
-           console.error(`Erreur lors du chargement de la recette ${folderName}:`, error);
+async loadPostDataForSidebar(folderName) {
+    try {
+        const jsonUrl = `${this.postPath}${folderName}/Post.json`;
+        const jsonResponse = await fetch(jsonUrl);
+        
+        if (!jsonResponse.ok) {
             return null;
         }
+
+        // Get text first to validate
+        const responseText = await jsonResponse.text();
+        
+        if (!responseText || responseText.trim().length === 0) {
+            console.warn(`⚠️ Empty JSON for sidebar: ${folderName}`);
+            return null;
+        }
+
+        let PostData;
+        try {
+            PostData = JSON.parse(responseText);
+        } catch (parseError) {
+            console.warn(`⚠️ Invalid JSON for sidebar: ${folderName}`);
+            return null;
+        }
+
+        if (!PostData.title) {
+            return null;
+        }
+
+        return {
+            slug: PostData.slug || folderName,
+            folderName,
+            title: PostData.title,
+            description: PostData.description || 'Description non disponible',
+            mainImage: this.getMainImage(PostData, folderName),
+            createdAt: PostData.createdAt,
+            updatedAt: PostData.updatedAt,
+            isOnline: PostData.isOnline,
+            ...PostData
+        };
+        
+    } catch (error) {
+        // Silently fail for sidebar items
+        return null;
     }
+}
 
     // Méthode pour définir des recettes par défaut basées sur les dossiers existants
     async setDefaultRecentPosts() {
@@ -1430,93 +1444,92 @@ console.log(this.recentPosts);
         return null;
     }
 
-    async loadPostData(postSlug) {
+async loadPostData(postSlug) {
+    try {
+        const jsonUrl = `${this.postPath}${postSlug}/Post.json`;
+        
+        const response = await fetch(jsonUrl);
+        
+        if (!response.ok) {
+            console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
+            return this.tryAlternativeFiles(postSlug);
+        }
+
+        // Get the response text first to check if it's valid
+        const responseText = await response.text();
+        
+        // Check if response is empty or invalid
+        if (!responseText || responseText.trim().length === 0) {
+            console.warn(`⚠️ Empty JSON file for ${postSlug}`);
+            return this.tryAlternativeFiles(postSlug);
+        }
+
+        // Try to parse the JSON
+        let PostData;
         try {
-            const jsonUrl = `${this.postPath}${postSlug}/Post.json`;
-           console.log('📡 Fetching Post from:', jsonUrl);
-            
-            const response = await fetch(jsonUrl);
-           console.log('📡 Response status:', response.status, response.statusText);
-            
-            if (!response.ok) {
-                console.warn(`❌ HTTP ${response.status}: Unable to load ${jsonUrl}`);
-                
-                // Essayer des variations du nom de fichier
-                const alternatives = [
-                    `${this.postPath}${postSlug}.json`,
-                    `${this.postPath}${postSlug}/data.json`,
-                    `${this.postPath}${postSlug}/Post-data.json`
-                ];
-                
-                for (const altUrl of alternatives) {
-                   console.log('🔄 Trying alternative:', altUrl);
-                    try {
-                        const altResponse = await fetch(altUrl);
-                        if (altResponse.ok) {
-                           console.log('✅ Found alternative Post file:', altUrl);
-                            const altData = await altResponse.json();
-                            altData.folderName = postSlug;
-                            altData.mainImage = this.getMainImage(altData, postSlug);
-                            return altData;
-                        }
-                    } catch (altError) {
-                       console.log('❌ Alternative failed:', altUrl, altError.message);
-                    }
+            PostData = JSON.parse(responseText);
+        } catch (parseError) {
+            console.error(`❌ JSON parsing failed for ${postSlug}:`, parseError);
+            console.log('First 200 chars of response:', responseText.substring(0, 200));
+            return this.tryAlternativeFiles(postSlug);
+        }
+
+        // Validation des données essentielles
+        if (!PostData.title) {
+            console.warn('⚠️ Post missing title, adding default');
+            PostData.title = postSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+        
+        if (!PostData.description) {
+            PostData.description = `Delicious ${PostData.title} Post`;
+        }
+        
+        if (!PostData.ingredients || !Array.isArray(PostData.ingredients)) {
+            PostData.ingredients = ['Ingredients list not available'];
+        }
+        
+        if (!PostData.instructions || !Array.isArray(PostData.instructions)) {
+            PostData.instructions = ['Instructions not available'];
+        }
+
+        PostData.folderName = postSlug;
+        PostData.mainImage = this.getMainImage(PostData, postSlug);
+
+        return PostData;
+        
+    } catch (error) {
+        console.error(`💥 Error loading Post ${postSlug}:`, error);
+        return this.createFallbackPost(postSlug);
+    }
+}
+
+async tryAlternativeFiles(postSlug) {
+    const alternatives = [
+        `${this.postPath}${postSlug}.json`,
+        `${this.postPath}${postSlug}/data.json`,
+        `${this.postPath}${postSlug}/recipe-data.json`
+    ];
+
+    for (const altUrl of alternatives) {
+        try {
+            const altResponse = await fetch(altUrl);
+            if (altResponse.ok) {
+                const responseText = await altResponse.text();
+                if (responseText && responseText.trim().length > 0) {
+                    const altData = JSON.parse(responseText);
+                    altData.folderName = postSlug;
+                    altData.mainImage = this.getMainImage(altData, postSlug);
+                    console.log('✅ Found alternative Post file:', altUrl);
+                    return altData;
                 }
-                
-                return null;
             }
-            
-            const PostData = await response.json();
-           console.log('✅ Post data parsed successfully:', PostData.title || 'Untitled');
-            
-            // Validation des données essentielles
-            if (!PostData.title) {
-                console.warn('⚠️ Post missing title, adding default');
-                PostData.title = postSlug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-            }
-            
-            if (!PostData.description) {
-                console.warn('⚠️ Post missing description, adding default');
-                PostData.description = `Delicious ${PostData.title} Post`;
-            }
-            
-            if (!PostData.ingredients || !Array.isArray(PostData.ingredients)) {
-                console.warn('⚠️ Post missing ingredients, adding defaults');
-                PostData.ingredients = ['Ingredients list not available'];
-            }
-            
-            if (!PostData.instructions || !Array.isArray(PostData.instructions)) {
-                console.warn('⚠️ Post missing instructions, adding defaults');
-                PostData.instructions = ['Instructions not available'];
-            }
-            
-            PostData.folderName = postSlug;
-            PostData.mainImage = this.getMainImage(PostData, postSlug);
-            
-        //    console.log('🎯 Post processed:', {
-        //         title: PostData.title,
-        //         ingredients: PostData.ingredients?.length || 0,
-        //         instructions: PostData.instructions?.length || 0,
-        //         mainImage: PostData.mainImage
-        //     });
-            
-            return PostData;
-            
-        } catch (error) {
-           console.error(`💥 Error loading Post ${postSlug}:`, error);
-            
-            // Retourner une recette de fallback si possible
-            if (error.name === 'SyntaxError') {
-               console.error('❌ JSON parsing failed - invalid JSON format');
-            } else if (error.name === 'TypeError') {
-               console.error('❌ Network error - check file paths and server');
-            }
-            
-            return this.createFallbackPost(postSlug);
+        } catch (altError) {
+            continue;
         }
     }
-
+    
+    return this.createFallbackPost(postSlug);
+}
 
     // Méthode pour ajouter les meta tags dynamiques pour chaque recette
 addPostMetaTags(Post) {
@@ -1752,28 +1765,29 @@ addBreadcrumbSchema(Post) {
         };
     }
 
-    getMainImage(PostData, folderName) {
-        if (PostData.image_path) {
-            return `./${PostData.image_path}`;
-        }
-        
-        if (PostData.images && PostData.images.length > 0) {
-            const mainImg = PostData.images.find(img => img.type === 'main');
-            if (mainImg && mainImg.filePath) {
-                return `./${mainImg.filePath}`;
-            }
-            
-            if (PostData.images[0].filePath) {
-                return `./${PostData.images[0].filePath}`;
-            }
-        }
-        
-        if (PostData.image) {
-            return `./posts/${folderName}/images/${PostData.image}`;
-        }
-        
-        return 'https://via.placeholder.com/400x300?text=Image+not+available';
+getMainImage(PostData, folderName) {
+    if (PostData.image_path) {
+        return `./${PostData.image_path}`;
     }
+    
+    if (PostData.images && PostData.images.length > 0) {
+        const mainImg = PostData.images.find(img => img.type === 'main');
+        if (mainImg && mainImg.filePath) {
+            return `./${mainImg.filePath}`;
+        }
+        if (PostData.images[0].filePath) {
+            return `./${PostData.images[0].filePath}`;
+        }
+    }
+    
+    if (PostData.image) {
+        return `./posts/${folderName}/images/${PostData.image}`;
+    }
+    
+    // Use a valid data URL instead of placeholder.com
+    return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23ddd" width="400" height="300"/%3E%3Ctext fill="%23999" font-family="sans-serif" font-size="20" dy="10.5" font-weight="bold" x="50%25" y="50%25" text-anchor="middle"%3EImage not available%3C/text%3E%3C/svg%3E';
+}
+
 
     // New method to render structured content with Pinterest buttons
     renderStructuredContent(structuredContent) {
