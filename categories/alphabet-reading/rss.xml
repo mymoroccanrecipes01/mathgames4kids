@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>alphabet-reading posts - RSS Feed</title>
+    <link>http://www.mathgames4kids.com/base.html</link>
+    <description>Fresh alphabet-reading posts and cooking inspiration</description>
+    <language>en-US</language>
+    <copyright>© 2025 www.mathgames4kids.com</copyright>
+    <managingEditor>info@mathgames4kids.com</managingEditor>
+    <webMaster>webmaster@mathgames4kids.com</webMaster>
+    <pubDate>Thu, 25 Dec 2025 18:13:54 +0100</pubDate>
+    <lastBuildDate>Thu, 25 Dec 2025 18:13:54 +0100</lastBuildDate>
+    <category>alphabet-reading</category>
+    <generator>posts - RSS Feed www.mathgames4kids.com</generator>
+    <ttl>60</ttl>
+    <atom:link href="http://www.mathgames4kids.com/base.html/rss.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>http://www.mathgames4kids.com/base.html/images/logo.png</url>
+      <title>alphabet-reading posts - RSS Feed</title>
+      <link>http://www.mathgames4kids.com/base.html</link>
+      <width>144</width>
+      <height>144</height>
+    </image>
+    <item>
+      <title>Fun Minion Coloring Pages for Kids (Ages 3-5)</title>
+      <link>http://www.mathgames4kids.com/base.html?page=post-detail&amp;slug=fun-minion-coloring-pages-for-kids-ages-3-5</link>
+      <description>Engaging Minion coloring pages that help kids develop fine motor skills while having fun! Perfect for preschoolers who love these lovable characters. Includes a variety of easy-to-color designs. Download and enjoy creative time with your little ones!</description>
+      <pubDate>Thu, 25 Dec 2025 18:13:26 +0100</pubDate>
+      <guid isPermaLink="true">http://www.mathgames4kids.com/base.html?page=post-detail&amp;slug=fun-minion-coloring-pages-for-kids-ages-3-5</guid>
+      <category>cat_1764517244_231</category>
+      <dc:creator>author_001</dc:creator>
+      <content:encoded><![CDATA[<div class="post-content" style="font-family: Arial, sans-serif; max-width: 600px;"><img src="http://www.mathgames4kids.com/posts/fun-minion-coloring-pages-for-kids-ages-3-5/images/fun-minion-coloring-pages-for-kids-ages-3-5_mollykitchendaily-main_image_4.webp" alt="Fun Minion Coloring Pages for Kids (Ages 3-5)" style="width:100%;max-width:600px;height:auto;border-radius:8px;margin-bottom:20px;"><div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-bottom:20px;"><p style="margin:5px 0;"><strong>⏱️ Prep Time:</strong> 5 minutes</p><p style="margin:5px 0;"><strong>🍳 Cook Time:</strong> 0 minutes</p><p style="margin:5px 0;"><strong>⏰ Total Time:</strong> 5 minutes</p><p style="margin:5px 0;"><strong>🍽️ Servings:</strong> 1</p><p style="margin:5px 0;"><strong>📊 Difficulty:</strong> Easy</p></div><div style="margin-bottom:30px;"><h3 style="color:#E60023;border-bottom:2px solid #E60023;padding-bottom:5px;">👩‍🍳 Instructions</h3><ol style="line-height:1.8;"><li>Step 1: Print the Minion coloring pages on standard A4 paper.</li><li>Step 2: Gather crayons or colored pencils and set up a comfortable workspace.</li><li>Step 3: Encourage kids to choose their favorite Minion page to color.</li><li>Step 4: Show them how to hold crayons properly for better control.</li><li>Step 5: Allow kids to color freely, reminding them to stay within the lines for practice.</li><li>Step 6: Once finished, display their artwork on the fridge or a wall.</li><li>Step 7: For added fun, kids can cut out their colored Minions and create a collage.</li><li>Step 8: Clean up the workspace together, teaching responsibility.</li></ol></div><div style="background:#fff3f3;padding:15px;border-radius:8px;border-left:4px solid #E60023;"><p><strong>📌 Pinterest Tags:</strong> #cat1764517244231 #Easypost #quickpost #30minutemeals #post #cooking #foodie #homemade #delicious</p></div><div style="text-align:center;margin-top:30px;padding:20px;background:#E60023;color:white;border-radius:8px;"><p style="margin:0;"><strong>📌 Save this post to Pinterest!</strong></p><p style="margin:5px 0 0 0;">Perfect for meal planning and sharing with friends</p></div></div>]]></content:encoded>
+      <media:content url="http://www.mathgames4kids.com/posts/fun-minion-coloring-pages-for-kids-ages-3-5/images/fun-minion-coloring-pages-for-kids-ages-3-5_mollykitchendaily-main_image_4.webp" medium="image" type="image/webp">
+        <media:title>Fun Minion Coloring Pages for Kids (Ages 3-5)</media:title>
+        <media:description>Engaging Minion coloring pages that help kids develop fine motor skills while having fun! Perfect for preschoolers who love these lovable characters. Includes a variety of easy-to-color designs. Download and enjoy creative time with your little ones!</media:description>
+      </media:content>
+      <media:group>
+        <media:category>post</media:category>
+        <media:keywords>cat1764517244231, Easypost, quickpost, 30minutemeals, post, cooking, foodie, homemade, delicious</media:keywords>
+      </media:group>
+    </item>
+  </channel>
+</rss>
