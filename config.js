@@ -1,5 +1,5 @@
 globalThis.facebookURL = "#";
-globalThis.PinterestURL = "#";
+globalThis.PinterestURL = "https://www.pinterest.com/marythompson4kids/";
 globalThis.twitterURL = "#";
 globalThis.redditURL = "#";
 globalThis.siteUrl = 'https://www.mathgames4kids.com';
